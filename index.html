@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แบบฝึกหัดปลายภาค Exercise Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1f2328;--mute:#5f6670;--line:#e3e1da;--ok:#1a7f4b;--okbg:#e6f4ec;--bad:#b42318;--badbg:#fdecea;--acc:#2f5bd3;--accbg:#eaf0ff;
+--cv:#c2410c;--resp:#0e7490;--en:#a16207;--cpr:#b91c1c;--fa:#15803d;--hx:#6d28d9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:16px;line-height:1.6}
+header{background:#1f2328;color:#fff;padding:22px 20px 18px}
+header .wrap{max-width:980px;margin:auto}
+h1{margin:0;font-size:1.45rem;font-weight:700}
+header p{margin:4px 0 0;color:#c9ccd1;font-size:.92rem}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.stat{background:#2c3138;border-radius:10px;padding:8px 14px;min-width:110px}
+.stat b{display:block;font-size:1.3rem}
+.stat span{font-size:.78rem;color:#aeb3ba}
+.bar{height:6px;background:#2c3138;border-radius:4px;margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;background:#4ade80;width:0;transition:width .3s}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{max-width:980px;margin:auto;padding:10px 16px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.row label{font-size:.8rem;color:var(--mute);margin-right:2px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:.86rem;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .n{opacity:.6;font-size:.75rem;margin-left:3px}
+.tool{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font:inherit;font-size:.82rem;cursor:pointer}
+.tool:hover,.chip:hover{border-color:#9aa0a8}
+main{max-width:980px;margin:auto;padding:16px}
+.note{background:#fff8e6;border:1px solid #f1d58a;border-radius:10px;padding:10px 14px;font-size:.88rem;margin-bottom:14px}
+details.sum{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px}
+details.sum summary{cursor:pointer;padding:12px 16px;font-weight:600}
+details.sum .in{padding:0 16px 14px;font-size:.92rem}
+details.sum table{border-collapse:collapse;width:100%;margin:6px 0}
+details.sum td,details.sum th{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+details.sum th{background:#f3f2ee}
+.sec-h{margin:22px 0 10px;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+.sec-h .dot{width:12px;height:12px;border-radius:50%}
+.q{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c,#999);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.q.done-ok{box-shadow:inset 0 0 0 1px #b7e2c8}
+.q.done-bad{box-shadow:inset 0 0 0 1px #f3b9b3}
+.qh{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.num{font-weight:700;margin-right:4px}
+.tag{font-size:.72rem;padding:1px 8px;border-radius:999px;background:#f0efe9;color:var(--mute)}
+.tag.calc{background:#fff1e6;color:#9a3412}.tag.theory{background:#eef2ff;color:#3730a3}.tag.mech{background:#ecfeff;color:#155e75}.tag.prac{background:#f0fdf4;color:#166534}
+.tag.d1{background:#ecfdf3;color:#067647}.tag.d2{background:#fef6e7;color:#a15c07}.tag.d3{background:#fef0f0;color:#b42318}
+.qt{font-weight:500;margin:2px 0 10px}
+.opts{display:grid;gap:7px}
+.opt{text-align:left;border:1px solid var(--line);background:#fcfcfa;border-radius:9px;padding:8px 12px;font:inherit;cursor:pointer;display:flex;gap:10px;color:var(--ink)}
+.opt:hover:not([disabled]){border-color:var(--acc);background:var(--accbg)}
+.opt .L{font-weight:700;color:var(--mute);min-width:18px}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+.ex{margin-top:10px;padding:10px 12px;border-radius:9px;background:#f6f7f9;font-size:.92rem;display:none}
+.ex.show{display:block}
+.ex .v{font-weight:700}
+.ex .v.ok{color:var(--ok)}.ex .v.bad{color:var(--bad)}
+.ans{background:#f2f6ff;border-left:3px solid var(--acc);padding:8px 12px;border-radius:6px;margin-bottom:6px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font:inherit;font-size:.86rem;cursor:pointer}
+.btn.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.g{color:var(--ok);border-color:var(--ok)}.btn.r{color:var(--bad);border-color:var(--bad)}
+textarea{width:100%;min-height:58px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:.9rem;resize:vertical}
+.pool,.seq{display:flex;flex-direction:column;gap:6px}
+.seqbox{border:1px dashed #c9c6bd;border-radius:9px;padding:8px;min-height:44px;margin:8px 0}
+.seqbox .ph{color:var(--mute);font-size:.85rem}
+.it{border:1px solid var(--line);background:#fcfcfa;border-radius:8px;padding:6px 10px;cursor:pointer;text-align:left;font:inherit;font-size:.92rem;color:var(--ink)}
+.it:hover{border-color:var(--acc)}
+.it.ok{background:var(--okbg);border-color:var(--ok)}.it.bad{background:var(--badbg);border-color:var(--bad)}
+.it .k{font-weight:700;margin-right:6px;color:var(--mute)}
+ol.right{margin:4px 0 0;padding-left:22px}
+table.mini{border-collapse:collapse;font-size:.85rem;margin-top:4px}
+table.mini td,table.mini th{border:1px solid var(--line);padding:3px 6px}
+.empty{text-align:center;color:var(--mute);padding:40px}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 10px}
+@media(max-width:600px){nav{position:static}h1{font-size:1.2rem}.stat{min-width:90px;padding:6px 10px}.q{padding:12px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>แบบฝึกหัดเตรียมสอบปลายภาค — Exercise Physiology</h1>
+<p>Cardiorespiratory Response 2 · CPR &amp; AED · First Aid from Sport · Exercise Training for Disease (+ พื้นฐาน Cardio, Respiratory, Energy)</p>
+<div class="stats">
+ <div class="stat"><b id="sTot">0</b><span>ข้อที่แสดง</span></div>
+ <div class="stat"><b id="sDone">0</b><span>ทำแล้ว</span></div>
+ <div class="stat"><b id="sOk">0</b><span>ถูก</span></div>
+ <div class="stat"><b id="sPct">–</b><span>% ความแม่นยำ</span></div>
+</div>
+<div class="bar"><i id="pbar"></i></div>
+</div></header>
+<nav><div class="wrap">
+ <div class="row" id="secRow"></div>
+ <div class="row"><label>ประเภท</label><span id="kRow" class="row"></span></div>
+ <div class="row"><label>ระดับ</label><span id="dRow" class="row"></span>
+  <label style="margin-left:8px">สถานะ</label><span id="stRow" class="row"></span></div>
+ <div class="row">
+  <button class="tool" id="bShuf">🔀 สุ่มลำดับข้อ</button>
+  <button class="tool" id="bReveal">👁 โหมดทบทวน (แสดงเฉลยทั้งหมด)</button>
+  <button class="tool" id="bReset">↺ ล้างคำตอบทั้งหมด</button>
+ </div>
+</div></nav>
+<main>
+ <div id="sumBox"></div>
+ <div id="list"></div>
+</main>
+<footer>ข้อสอบจัดทำจากสไลด์ของอาจารย์ (6, 7.1, 8, 9.1, 4.1, CPR 69, 2.1.1) · หมวด First Aid อ้างอิงหลักปฐมพยาบาลมาตรฐาน · คำตอบถูกบันทึกไว้ในเบราว์เซอร์นี้</footer>
+<script>
+// ===== helpers =====
+// M = multiple choice, O = open (reveal answer), R = ordering
+const QS=[];
+function M(s,k,d,q,o,a,ex){QS.push({s,k,d,f:'mcq',q,o,a,ex})}
+function O(s,k,d,q,ans,ex){QS.push({s,k,d,f:'open',q,ans,ex:ex||''})}
+function R(s,k,d,q,items,ex){QS.push({s,k,d,f:'order',q,items,ex:ex||''})}
+
+// =====================================================================
+// 1) CARDIOVASCULAR (6. CARDIOVASCULAR + 7.1 Cardiology response)
+// =====================================================================
+const S='cv';
+M(S,'theory',1,`สูตรของ Cardiac Output (CO หรือ Q) คือข้อใด`,
+ [`CO = HR × SV`,`CO = SV ÷ HR`,`CO = BP × TPR`,`CO = EDV − ESV`],0,
+ `CO = HR × SV คือปริมาณเลือดที่หัวใจห้องล่างซ้ายสูบฉีดออกต่อนาที (L/min)`);
+M(S,'theory',1,`Stroke Volume (SV) คำนวณได้จากข้อใด`,
+ [`SV = ESV − EDV`,`SV = EDV − ESV`,`SV = CO × HR`,`SV = EDV + ESV`],1,
+ `SV = EDV (End Diastolic Volume — ปริมาตรตอนคลายตัว) − ESV (End Systolic Volume — ปริมาตรที่เหลือตอนบีบตัว)`);
+M(S,'theory',1,`สูตรความสัมพันธ์ของ Blood Pressure ตามสไลด์คือข้อใด`,
+ [`BP = CO ÷ TPR`,`BP = HR × SV`,`BP = TPR × CO`,`BP = BF × CO`],2,
+ `BP = TPR × CO (TPR = Total Peripheral Resistance) และ MAP = Q × TPR`);
+M(S,'theory',1,`Tissue Blood Flow (BF) มีความสัมพันธ์ตามข้อใด`,
+ [`BF = BP × R`,`BF = BP ÷ R`,`BF = R ÷ BP`,`BF = CO × R`],1,
+ `BF = BP / R → เมื่อหลอดเลือดขยาย (vasodilation) R ลด → BF เพิ่ม`);
+M(S,'calc',1,`ชายคนหนึ่งขณะพักมี HR = 70 ครั้ง/นาที, SV = 70 mL/ครั้ง ค่า CO เท่าใด`,
+ [`1.0 L/min`,`4.9 L/min`,`7.0 L/min`,`49 L/min`],1,
+ `CO = 70 × 70 = 4,900 mL/min = <b>4.9 L/min</b> ≈ ค่าปกติขณะพัก ~5 L/min`);
+M(S,'calc',1,`EDV = 120 mL, ESV = 50 mL ค่า SV เท่าใด`,
+ [`170 mL`,`2.4 mL`,`70 mL`,`50 mL`],2,`SV = 120 − 50 = <b>70 mL</b>`);
+M(S,'calc',2,`จากสไลด์ Effect of body position (ขณะพัก) ท่านอนหงาย (Supine) EDV 105, ESV 33 และท่ายืน (Upright) EDV 83, ESV 30 mL ข้อใดถูก`,
+ [`Supine SV = 72, Upright SV = 53 mL`,`Supine SV = 53, Upright SV = 72 mL`,`ทั้งสองท่า SV = 72 mL`,`Supine SV = 138, Upright SV = 113 mL`],0,
+ `Supine: 105−33 = 72 mL; Upright: 83−30 = 53 mL → ท่านอน SV สูงกว่าเพราะไม่มีแรงโน้มถ่วง (P = ρgh) ดึงเลือดไว้ที่ขา → Venous return ↑ → EDV ↑`);
+O(S,'calc',2,`ขณะออกกำลังกาย ท่านอน EDV 138 ESV 29 mL, ท่ายืน EDV 120 ESV 29 mL จงหา SV ทั้งสองท่า และอธิบายว่าทำไมต่างกัน`,
+ `Supine SV = 138−29 = <b>109 mL</b>; Upright SV = 120−29 = <b>91 mL</b>`,
+ `ESV เท่ากัน (contractility ใกล้เคียงกัน) แต่ EDV ท่านอนสูงกว่า เพราะแรงโน้มถ่วงในท่ายืนทำให้เลือดค้างที่ขา → venous return ลด → EDV ลด → SV ลด (Frank-Starling)`);
+M(S,'calc',1,`บุคคลอายุ 40 ปี มี HRmax โดยประมาณ (220 − อายุ) เท่าใด`,
+ [`160`,`170`,`180`,`190`],2,`220 − 40 = <b>180</b> ครั้ง/นาที`);
+M(S,'calc',2,`บุคคลอายุ 20 ปี ใช้สูตร HRmax = 208 − (0.7 × อายุ) จะได้เท่าใด`,
+ [`194`,`200`,`188`,`214`],0,`208 − (0.7×20) = 208 − 14 = <b>194</b> ครั้ง/นาที (สูตร 220−อายุ ได้ 200)`);
+M(S,'calc',2,`ผู้สูงอายุ 60 ปี: HRmax จากสูตร 220−อายุ และ 208−0.7×อายุ ต่างกันกี่ครั้ง/นาที`,
+ [`0`,`4`,`6`,`10`],2,`220−60 = 160; 208−42 = 166 → ต่างกัน <b>6</b> (สูตร 208−0.7×อายุ แม่นกว่าในผู้สูงอายุ; ทั้งสองสูตรได้ 180 เท่ากันที่อายุ 40)`);
+M(S,'calc',2,`นักศึกษาอายุ 30 ปี ต้องการออกกำลังที่ 50–70% HRmax (220−อายุ) ช่วง Target HR คือ`,
+ [`80–112`,`95–133`,`100–140`,`110–150`],1,`HRmax = 190 → 0.5×190 = 95, 0.7×190 = 133 → <b>95–133 ครั้ง/นาที</b>`);
+M(S,'calc',2,`ขณะออกกำลังกายหนัก HR = 180, SV = 110 mL ค่า CO เท่าใด`,
+ [`1.98 L/min`,`19.8 L/min`,`29 L/min`,`198 L/min`],1,`180 × 110 = 19,800 mL/min = <b>19.8 L/min</b> ≈ Qmax ของคนไม่ได้ฝึก (~20 L/min)`);
+M(S,'calc',3,`นักกีฬาระดับ elite มี Qmax = 40 L/min ที่ HRmax 190 ครั้ง/นาที SV ขณะนั้นประมาณเท่าใด`,
+ [`105 mL`,`150 mL`,`210 mL`,`290 mL`],2,`SV = CO/HR = 40,000/190 ≈ <b>210 mL</b> — นักกีฬามี Qmax สูงเพราะ SV สูงมาก ไม่ใช่เพราะ HRmax สูง (HRmax ใกล้เคียงคนทั่วไป)`);
+O(S,'calc',2,`ขณะพัก ทั้งนักกีฬา (RHR 40) และคนไม่ได้ฝึก (RHR 70) มี CO = 5 L/min เท่ากัน จงหา SV ของแต่ละคนและแปลผล`,
+ `นักกีฬา SV = 5000/40 = <b>125 mL</b>; คนไม่ได้ฝึก SV = 5000/70 ≈ <b>71 mL</b>`,
+ `CO ขณะพักใกล้เคียงกัน (~5 L/min) แต่นักกีฬาใช้ SV มากกว่า (หัวใจห้องล่างซ้ายใหญ่และแข็งแรงขึ้น, blood volume เพิ่ม) จึงเต้นช้ากว่า = หัวใจทำงานมีประสิทธิภาพกว่า + parasympathetic tone สูงกว่า`);
+M(S,'calc',3,`ถ้า HR เพิ่มจาก 100 เป็น 150 แต่ SV คงที่ 100 mL ค่า CO จะเปลี่ยนอย่างไร`,
+ [`คงที่ 10 L/min`,`เพิ่มจาก 10 เป็น 15 L/min (+50%)`,`ลดลง 50%`,`เพิ่มเป็น 2 เท่า`],1,`CO แปรผันตรงกับ HR เมื่อ SV คงที่: 100×100 = 10 L → 150×100 = 15 L/min`);
+M(S,'calc',3,`ถ้า HR สูงมากจนเวลา diastole สั้นลง ทำให้ EDV ลดจาก 130 เหลือ 100 mL ขณะที่ ESV = 30 mL และ HR เพิ่มจาก 150 เป็น 200 CO จะเป็นอย่างไร`,
+ [`เพิ่มจาก 15 เป็น 20 L/min`,`ลดลงเล็กน้อยจาก 15 เป็น 14 L/min`,`เพิ่มจาก 15 เป็น 26 L/min`,`ลดจาก 20 เป็น 10 L/min`],1,
+ `ก่อน: SV = 100 → CO = 150×100 = 15 L/min; หลัง: SV = 70 → CO = 200×70 = 14 L/min → HR ที่สูงเกินไปทำให้เวลาเติมเลือดไม่พอ CO จึงไม่เพิ่ม (เหตุผลที่ CO plateau ใกล้ VO<sub>2</sub>max)`);
+M(S,'calc',1,`ความดันโลหิต 120/80 mmHg มี Pulse Pressure เท่าใด`,
+ [`200`,`40`,`100`,`1.5`],1,`Pulse Pressure = SBP − DBP = 120 − 80 = <b>40 mmHg</b>`);
+M(S,'calc',1,`ความดัน 120/80 mmHg มี Mean Arterial Pressure (MAP) ประมาณเท่าใด`,
+ [`100`,`93.3`,`86.7`,`106.7`],1,`MAP = DBP + ⅓PP = 80 + 40/3 = <b>93.3 mmHg</b>`);
+M(S,'calc',2,`ขณะปั่นจักรยานหนัก ความดัน 180/76 mmHg ค่า MAP เท่าใด`,
+ [`128`,`110.7`,`104`,`116`],1,`PP = 104 → MAP = 76 + 104/3 = 76 + 34.7 = <b>110.7 mmHg</b>`);
+O(S,'calc',3,`ขณะพัก MAP = 93 mmHg, CO = 5 L/min; ขณะออกกำลัง MAP = 110 mmHg, CO = 20 L/min จงคำนวณ TPR ทั้งสองสภาวะ และแปลผล`,
+ `TPR = MAP/CO → พัก = 93/5 = <b>18.6</b>; ออกกำลัง = 110/20 = <b>5.5</b> mmHg·min/L`,
+ `TPR ลดลง ~70% เพราะหลอดเลือดในกล้ามเนื้อที่ทำงานขยายตัว (vasodilation) → BP จึงเพิ่มเพียงเล็กน้อยแม้ CO เพิ่ม 4 เท่า`);
+M(S,'calc',2,`ถ้า CO คงที่ แต่เกิด Vasoconstriction ทั่วร่างกาย TPR และ BP จะเป็นอย่างไร`,
+ [`TPR ↓, BP ↓`,`TPR ↑, BP ↑`,`TPR ↑, BP ↓`,`TPR ไม่เปลี่ยน, BP ↑`],1,`BP = TPR × CO → หลอดเลือดหดตัว R ↑ → TPR ↑ → BP ↑`);
+M(S,'calc',2,`กล้ามเนื้อมี BP 100 mmHg, R = 20 หน่วย เมื่อออกกำลังเกิด vasodilation ทำให้ R เหลือ 10 หน่วย (BP เท่าเดิม) BF จะเปลี่ยนจาก…เป็น…`,
+ [`5 → 10 (เพิ่ม 2 เท่า)`,`5 → 2.5`,`2000 → 1000`,`10 → 5`],0,`BF = BP/R: 100/20 = 5 → 100/10 = 10 → BF เพิ่ม 2 เท่า`);
+M(S,'calc',1,`จากสไลด์ เลือดแดงมี O<sub>2</sub> 100 cc เลือดดำมี O<sub>2</sub> 40 cc ปริมาณ O<sub>2</sub> ที่เนื้อเยื่อใช้ (A−V O<sub>2</sub> difference) เท่าใด`,
+ [`140 cc`,`60 cc`,`40 cc`,`2.5 cc`],1,`(A−V)O<sub>2</sub> diff = 100 − 40 = <b>60 cc</b>`);
+M(S,'theory',1,`สูตร Fick ของการใช้ออกซิเจน (VO<sub>2</sub>) คือข้อใด`,
+ [`VO<sub>2</sub> = HR × SV`,`VO<sub>2</sub> = CO × (A−V)O<sub>2</sub> diff`,`VO<sub>2</sub> = VE × RR`,`VO<sub>2</sub> = BP / R`],1,
+ `VO<sub>2</sub> = Q × (A−V)O<sub>2</sub> diff = HR × SV × (A−V)O<sub>2</sub> diff — ขึ้นกับ (1) blood flow = CO และ (2) O<sub>2</sub> extraction`);
+M(S,'calc',2,`ขณะพัก CO = 5 L/min, (A−V)O<sub>2</sub> diff = 6 mL O<sub>2</sub>/100 mL blood ค่า VO<sub>2</sub> เท่าใด`,
+ [`30 mL/min`,`300 mL/min`,`3,000 mL/min`,`833 mL/min`],1,`5,000 mL × (6/100) = <b>300 mL O<sub>2</sub>/min</b>`);
+M(S,'calc',2,`ขณะออกกำลังสูงสุด CO = 20 L/min, (A−V)O<sub>2</sub> diff = 16 mL/100 mL ค่า VO<sub>2</sub>max เท่าใด`,
+ [`0.32 L/min`,`1.25 L/min`,`3.2 L/min`,`32 L/min`],2,`20,000 × 0.16 = 3,200 mL/min = <b>3.2 L/min</b>`);
+O(S,'calc',3,`นักวิ่งน้ำหนัก 70 kg มี HRmax 190, SVmax 180 mL, (A−V)O<sub>2</sub> diff 17 mL/100 mL จงหา Qmax, VO<sub>2</sub>max (L/min) และ VO<sub>2</sub>max (mL/kg/min)`,
+ `Qmax = 190×180 = 34,200 mL = <b>34.2 L/min</b><br>VO<sub>2</sub>max = 34,200 × 0.17 = 5,814 mL/min ≈ <b>5.8 L/min</b><br>ต่อ kg = 5,814/70 ≈ <b>83 mL/kg/min</b>`,
+ `ค่าระดับนักกีฬาความทนทาน — สังเกตว่าตัวแปรที่ทำให้สูงคือ SV และ O<sub>2</sub> extraction`);
+M(S,'calc',3,`ผู้ทดสอบมี VO<sub>2</sub> = 2.4 L/min และ CO = 15 L/min ค่า (A−V)O<sub>2</sub> diff เท่าใด`,
+ [`6 mL/100 mL`,`16 mL/100 mL`,`36 mL/100 mL`,`0.6 mL/100 mL`],1,`(A−V) = VO<sub>2</sub>/CO = 2,400/15,000 = 0.16 → <b>16 mL O<sub>2</sub>/100 mL blood</b> (ใกล้ค่าที่ max exercise 16–17)`);
+M(S,'theory',1,`Resting Heart Rate (RHR) ปกติของคนที่ไม่ได้ฝึก และนักกีฬาที่ฝึกดีตามสไลด์คือ`,
+ [`60–80 และ 30–40 ครั้ง/นาที`,`80–100 และ 60–70`,`50–60 และ 20–30`,`70–90 และ 50–60`],0,
+ `Untrained RHR 60–80, Trained RHR ต่ำได้ถึง 30–40 ครั้ง/นาที; RHR ได้รับผลจาก neural tone, อุณหภูมิ, altitude`);
+M(S,'mech',1,`Anticipatory response คืออะไร`,
+ [`HR ลดลงก่อนออกกำลังกาย`,`HR เพิ่มขึ้นเหนือ RHR ก่อนเริ่มออกกำลังกาย จาก Sympathetic ↑ และ Parasympathetic ↓`,`BP ลดลงหลังออกกำลังกาย`,`SV เพิ่มขึ้นหลังหยุดออกกำลังกาย`],1,
+ `แค่คาดว่าจะออกกำลัง (เช่น ยืนรอปล่อยตัว) ระบบประสาทอัตโนมัติก็ปรับ HR ขึ้นแล้ว`);
+M(S,'theory',1,`ระบบ Sympathetic มีผลต่อหัวใจและหลอดเลือดอย่างไร (ตามสไลด์)`,
+ [`HR ↓, Contractility ↓, Vasodilation`,`HR ↑, Contractility ↑, Vasoconstriction`,`HR ↑, Contractility ↓, Vasodilation`,`HR ↓, Contractility ↑, Vasoconstriction`],1,
+ `Sympathetic: HR↑ Contractility↑ Vasoconstriction / Parasympathetic: HR↓ Contractility↓ Vasodilation`);
+M(S,'theory',2,`HR ขณะออกกำลังกายมีความสัมพันธ์กับความหนัก (intensity) อย่างไร`,
+ [`แปรผกผัน`,`แปรผันตรง จนถึง plateau ที่ HRmax`,`ไม่สัมพันธ์`,`เพิ่มแบบ exponential ไม่มี plateau`],1,
+ `HR ∝ intensity (เส้นตรง) และ plateau เมื่อถึง HRmax; HRmax reproducible สูงและลดลงเล็กน้อยตามอายุ`);
+M(S,'theory',2,`เมื่อเพิ่ม intensity ขึ้นอีกระดับ HR ต้องใช้เวลาประมาณเท่าใดจึงเข้าสู่ steady state ใหม่`,
+ [`5–10 วินาที`,`30 วินาที`,`2–3 นาที`,`10–15 นาที`],2,`Adjustment to new intensity takes <b>2–3 min</b>`);
+M(S,'calc',2,`A และ B ปั่นจักรยานที่งานเท่ากัน 150 W: A มี steady-state HR 130, B มี 160 ข้อสรุปใดถูก`,
+ [`B ฟิตกว่า เพราะหัวใจตอบสนองไวกว่า`,`A ฟิตกว่า เพราะใช้ HR น้อยกว่าที่งานเท่ากัน (SV สูงกว่า)`,`ฟิตเท่ากัน`,`สรุปไม่ได้เลย`],1,
+ `HR ที่ intensity เดียวกันใช้ประเมิน aerobic fitness ได้ — คนที่ HR ต่ำกว่าที่ workload เดียวกันฟิตกว่า (A fitter than B)`);
+M(S,'theory',2,`Stroke Volume เพิ่มขึ้นตาม intensity จนถึง plateau ที่ประมาณกี่ % VO<sub>2</sub>max`,
+ [`10–20%`,`40–60%`,`80–90%`,`100%`],1,`SV ↑ จนถึง 40–60% VO<sub>2</sub>max; untrained plateau ~60%, trained plateau > 60% (บางคนเพิ่มต่อไปได้) ที่ max SV เพิ่ม ~2 เท่า`);
+M(S,'mech',2,`ข้อใด<u>ไม่ใช่</u>กลไกที่ทำให้ SV เพิ่มขึ้นขณะออกกำลังกาย`,
+ [`EDV ↑ จาก venous return ↑`,`Contractility ↑ → ESV ↓`,`Aorta vasodilation → แรงต้านที่ aorta ↓`,`Parasympathetic ↑ ทำให้หัวใจบีบแรงขึ้น`],3,
+ `3 กลไกตามสไลด์: (1) VR↑→EDV↑ (2) contractility↑→ESV↓ (3) aorta resistance↓; Parasympathetic ทำให้ HR และ contractility ลด`);
+M(S,'theory',1,`ค่าปกติของ Cardiac Output ตามสไลด์ข้อใดถูก`,
+ [`พัก ~5, untrained max ~20, trained max ~40 L/min`,`พัก ~10, untrained max ~30, trained max ~60`,`พัก ~2, untrained max ~10, trained max ~20`,`พัก ~5, untrained max ~40, trained max ~20`],0,
+ `Resting Q ~5 L/min, Untrained Qmax ~20, Trained Qmax ~40 — Qmax ขึ้นกับขนาดร่างกายและ aerobic fitness`);
+M(S,'theory',2,`จากกราฟ Effect of body position and activity ข้อใดถูก`,
+ [`เมื่อเปลี่ยนท่า CO เปลี่ยนตาม HR; เมื่อเปลี่ยน activity CO เปลี่ยนตาม SV`,`เมื่อเปลี่ยนท่า (position) CO เปลี่ยนคล้าย SV; เมื่อ activity เพิ่ม CO เปลี่ยนคล้าย HR`,`CO ไม่ขึ้นกับท่าทาง`,`CO ขึ้นกับ BP เท่านั้น`],1,
+ `Position → SV เปลี่ยน (gravity/EDV) CO จึงตาม SV; Activity ↑ → HR ↑ เป็นหลัก (SV plateau) CO จึงตาม HR`);
+M(S,'theory',2,`ขณะออกกำลังกายแบบ endurance ความดันเปลี่ยนแปลงอย่างไร`,
+ [`SBP ↑ ตาม intensity, DBP เปลี่ยนน้อย/ลดเล็กน้อยที่ max, MAP ↑`,`SBP ↓, DBP ↑`,`SBP และ DBP ↑ เท่าๆ กัน`,`ทุกค่าลดลง`],0,
+ `SBP ∝ intensity (ตาม CO), DBP ↓ เล็กน้อยที่ max เพราะ TPR ↓; SBP sensitive กว่า DBP`);
+O(S,'mech',2,`อธิบายว่าทำไม SBP จึงตอบสนองต่อการออกกำลังกายได้ไวกว่า DBP`,
+ `SBP สะท้อนแรงบีบตัวของหัวใจ (CO) ซึ่งเพิ่มมาก ขณะที่ DBP สะท้อนแรงต้านหลอดเลือด (TPR) ซึ่งลดลงจาก vasodilation ในกล้ามเนื้อ`,
+ `ผลรวม: SBP ↑ ชัดเจน, DBP คงที่หรือลดเล็กน้อย → Pulse pressure กว้างขึ้น`);
+M(S,'mech',2,`Blood flow redistribution ขณะออกกำลังกาย อวัยวะใดได้รับสัดส่วนเลือด<u>ลดลง</u>`,
+ [`กล้ามเนื้อที่กำลังทำงาน`,`ตับ, ตับอ่อน, ทางเดินอาหาร (splanchnic) และไต`,`หัวใจ (coronary)`,`ผิวหนังเมื่อร่างกายร้อน`],1,
+ `Organ ที่ metabolism ต่ำได้รับเลือดน้อยลงจาก sympathetic vasoconstriction; กล้ามเนื้อทำงานได้รับเพิ่ม (เกือบ 80–90% ของ CO ที่ max)`);
+M(S,'calc',2,`ขณะพัก CO 5 L/min กล้ามเนื้อได้ ~20% แต่ขณะออกกำลังสูงสุด CO 25 L/min กล้ามเนื้อได้ ~85% ปริมาณเลือดไปกล้ามเนื้อเพิ่มจาก…เป็น…`,
+ [`1 → 21.25 L/min`,`1 → 5 L/min`,`5 → 25 L/min`,`0.2 → 0.85 L/min`],0,`พัก 5×0.20 = 1 L/min; max 25×0.85 = 21.25 L/min → เพิ่ม ~21 เท่า (เพราะทั้ง CO ↑ และ redistribution)`);
+M(S,'theory',2,`ตามสไลด์อาจารย์ การขยายตัวของหลอดเลือดในกล้ามเนื้อที่ทำงานเกิดจากอะไร`,
+ [`Sympathetic vasoconstriction`,`Parasympathetic (vasodilation) ร่วมกับ metabolism สูง`,`การลดลงของ CO`,`ไตหลั่งฮอร์โมน`],1,
+ `สไลด์ระบุ "Exercising muscle receives more blood flow (Parasympathetic; vasodilation)" — หมายเหตุ: ตำราสากลเน้นว่าเกิดจาก local metabolic factors (CO<sub>2</sub>, H<sup>+</sup>, K<sup>+</sup>, adenosine) ร่วมด้วย ตอบตามสไลด์ในข้อสอบ`);
+R(S,'mech',2,`เรียงลำดับกลไกการตอบสนองของระบบหัวใจเมื่อเริ่มออกกำลังกาย`,
+ [`เริ่มออกกำลังกาย / สมองสั่งการ`,`กระตุ้น Sympathetic (ลด Parasympathetic)`,`HR ↑ และ Contractility ↑`,`CO ↑ (= HR × SV)`,`เลือดและ O<sub>2</sub> ไปกล้ามเนื้อมากขึ้น`],
+ `Flowchart ที่ควรวาดได้เอง: ออกกำลังกาย → Sympathetic → HR & Contractility ↑ → CO ↑ → ส่งเลือดไปกล้ามเนื้อ`);
+R(S,'mech',3,`เรียงลำดับเหตุการณ์ที่ทำให้ SV เพิ่มขึ้นผ่านกลไก venous return (Frank–Starling)`,
+ [`กล้ามเนื้อขาหดตัว (muscle pump) + การหายใจลึก`,`Venous return กลับเข้า Right atrium ↑`,`EDV ↑ (ventricle ยืดมากขึ้น)`,`แรงบีบตัว ↑`,`SV ↑`],
+ `VR = CO ในสภาวะสมดุล (เลือดเข้าเท่ากับเลือดออก)`);
+M(S,'theory',1,`Venous return (VR) และ Cardiac output (CO) ข้อใดถูก`,
+ [`VR คือเลือดออกจาก LV, CO คือเลือดเข้า RA`,`VR คือเลือดกลับหัวใจทาง Right atrium, CO คือเลือดออกจาก Left ventricle และ CO = VR`,`VR มากกว่า CO เสมอ`,`CO = 2 × VR`],1,
+ `I in = VR, I out = CO → ในภาวะสมดุล CO = VR`);
+M(S,'theory',1,`ห้องหัวใจใดสูบฉีดเลือดออกสู่ Aorta`,
+ [`Right atrium`,`Right ventricle`,`Left atrium`,`Left ventricle`],3,`LV → Aorta → systemic circulation; RV → Pulmonary artery → ปอด`);
+M(S,'theory',1,`หลอดเลือดใดนำเลือดที่มี O<sub>2</sub> สูงจากปอดกลับสู่หัวใจ`,
+ [`Pulmonary artery`,`Pulmonary vein`,`Superior vena cava`,`Aorta`],1,`Pulmonary vein นำเลือดแดง (O<sub>2</sub> สูง) จากปอดกลับ Left atrium — เป็นหลอดเลือดดำเส้นเดียวที่มีเลือด O<sub>2</sub> สูง`);
+M(S,'theory',1,`การอุดตันของ Coronary artery ส่งผลอย่างไร`,
+ [`ปอดขาด O<sub>2</sub>`,`กล้ามเนื้อหัวใจบริเวณนั้นขาดเลือดและตาย (Myocardial infarction)`,`ความดันลดทันที`,`ไตวาย`],1,`Coronary artery เลี้ยงกล้ามเนื้อหัวใจ — obstruction point → heart muscle dead area`);
+M(S,'calc',1,`ปริมาตร RBC = 2.2 L จากเลือดทั้งหมด 5 L ค่า Hematocrit เท่าใด`,
+ [`22%`,`44%`,`2.27%`,`55%`],1,`Hct = (RBC × 100)/BV = 2.2×100/5 = <b>44%</b>`);
+M(S,'theory',1,`ผู้ชายมี Hct 38% (ปกติชาย 45–55%) ภาวะนี้เรียกว่า`,
+ [`Polycythemia`,`Anemia`,`Normal`,`Hypertension`],1,`ต่ำกว่าปกติ = Anemia (โลหิตจาง); สูงกว่าปกติ = Polycythemia`);
+M(S,'theory',1,`โปรตีนใน Plasma ชนิดใดทำหน้าที่เกี่ยวกับภูมิคุ้มกัน (antibody)`,
+ [`Albumin`,`Globulin`,`Fibrin`,`Hemoglobin`],1,`Albumin = transport, Globulin = immune (antibody), Fibrin = blood clot`);
+M(S,'theory',1,`ข้อใด<u>ไม่ใช่</u>หน้าที่ของเลือดตามสไลด์`,
+ [`ขนส่งก๊าซ O<sub>2</sub>/CO<sub>2</sub>`,`ขนส่งสารอาหารและของเสีย`,`ควบคุมอุณหภูมิร่างกาย`,`สร้าง ATP ด้วย Kreb's cycle ในพลาสมา`],3,
+ `หน้าที่: ขนก๊าซ, สารอาหาร, ของเสีย, เอนไซม์/ฮอร์โมน, ควบคุมอุณหภูมิ (conduction, convection, radiation, evaporation)`);
+M(S,'theory',2,`ร่างกายระบายความร้อนขณะออกกำลังกายวิธีใดสำคัญที่สุดเมื่ออากาศร้อน`,
+ [`Conduction`,`Convection`,`Radiation`,`Evaporation (เหงื่อระเหย)`],3,`เมื่ออุณหภูมิแวดล้อมสูง วิธีหลักคือ evaporation ของเหงื่อ`);
+O(S,'mech',3,`จงวาด/อธิบายผังความสัมพันธ์ "ANS → HR/SV → CO → BP → BF" ตามสไลด์ CARDIOVASCULAR`,
+ `ANS (Sym/Parasym) → ควบคุม HR และ SV (SV = EDV − ESV) → CO = HR × SV → BP = TPR × CO → BF = BP/R (R ขึ้นกับขนาดหลอดเลือดของเนื้อเยื่อ)`,
+ `จุดออกสอบ: ANS คุมทั้งหัวใจ (HR, contractility) และขนาดหลอดเลือด (vasoconstriction/dilation → TPR, R)`);
+M(S,'theory',2,`ทำไมในท่ายืน SV ขณะพักจึงต่ำกว่าท่านอน`,
+ [`HR สูงกว่า`,`แรงโน้มถ่วงทำให้เลือดค้างที่ขา → VR ↓ → EDV ↓`,`Contractility ลดลง`,`TPR ลดลง`],1,`Supine EDV > Standing EDV — the consequence of gravity`);
+M(S,'calc',3,`ชายคนหนึ่งมี VO<sub>2</sub> 3.0 L/min ที่ HR 150 และ (A−V)O<sub>2</sub> diff 15 mL/100mL SV เท่าใด`,
+ [`100 mL`,`133 mL`,`150 mL`,`200 mL`],1,`CO = VO<sub>2</sub>/(A−V) = 3,000/0.15 = 20,000 mL/min → SV = 20,000/150 ≈ <b>133 mL</b>`);
+
+// =====================================================================
+// 2) RESPIRATORY (8. RESPIRATORY SYSTEM + 9.1 Respiratory response)
+// =====================================================================
+{const S='resp';
+M(S,'theory',1,`Minute ventilation (VE) คำนวณได้จากสูตรใด`,
+ [`VE = TV + RR`,`VE = TV × RR`,`VE = TV ÷ RR`,`VE = VC × RR`],1,`VE (Minute volume, MV) = TV (Tidal volume – amplitude) × RR (Respiration rate – frequency)`);
+M(S,'calc',1,`ขณะพัก TV = 500 mL, RR = 12 ครั้ง/นาที ค่า VE เท่าใด`,
+ [`512 mL/min`,`6 L/min`,`60 L/min`,`41.7 mL/min`],1,`500 × 12 = 6,000 mL/min = <b>6 L/min</b>`);
+M(S,'calc',1,`จากสไลด์ Ventilatory Equivalents: TV 500 mL × RR 20 และ VO<sub>2</sub> = 250 cc/min ค่า VE/VO<sub>2</sub> เท่าใด`,
+ [`25`,`40`,`20`,`0.025`],1,`VE = 500×20 = 10,000 mL = 10 L/min; VO<sub>2</sub> = 0.25 L/min → 10/0.25 = <b>40</b>`);
+M(S,'calc',2,`ขณะออกกำลังหนัก TV = 2,000 mL, RR = 40 ครั้ง/นาที, VO<sub>2</sub> = 3.0 L/min ค่า VE และ VE/VO<sub>2</sub> เท่าใด`,
+ [`VE 42 L/min, VE/VO<sub>2</sub> 14`,`VE 80 L/min, VE/VO<sub>2</sub> 26.7`,`VE 8 L/min, VE/VO<sub>2</sub> 2.7`,`VE 800 L/min, VE/VO<sub>2</sub> 267`],1,`VE = 2×40 = 80 L/min → 80/3 = <b>26.7</b>`);
+M(S,'calc',2,`นักกีฬามี VE = 60 L/min ที่ RR 30 ครั้ง/นาที TV เท่าใด`,
+ [`0.5 L`,`2 L`,`30 L`,`1,800 L`],1,`TV = VE/RR = 60/30 = <b>2 L</b>`);
+M(S,'calc',2,`ถ้าออกกำลังทำให้ TV เพิ่มจาก 0.5 เป็น 1.5 L (3 เท่า) และ RR เพิ่มจาก 12 เป็น 30 (2.5 เท่า) VE เพิ่มขึ้นกี่เท่า`,
+ [`5.5 เท่า`,`7.5 เท่า`,`3 เท่า`,`2.5 เท่า`],1,`VE: 6 → 45 L/min = 3 × 2.5 = <b>7.5 เท่า</b> (ผลคูณ ไม่ใช่ผลบวก)`);
+M(S,'calc',1,`จากกราฟ spirometer: TV 500, IRV 3,000, ERV 1,100, RV 1,200 mL ค่า Vital Capacity (VC) เท่าใด`,
+ [`4,600 mL`,`5,800 mL`,`3,500 mL`,`2,300 mL`],0,`VC = TV + IRV + ERV = 500 + 3,000 + 1,100 = <b>4,600 mL</b>`);
+M(S,'calc',1,`จากค่าเดียวกัน Total Lung Capacity (TLC) เท่าใด`,
+ [`4,600 mL`,`5,800 mL`,`5,300 mL`,`6,100 mL`],1,`TLC = VC + RV = 4,600 + 1,200 = <b>5,800 mL</b>`);
+M(S,'calc',1,`Inspiratory Capacity (IC) และ Functional Residual Capacity (FRC) จากค่าเดียวกันคือ`,
+ [`IC 3,500; FRC 2,300`,`IC 3,000; FRC 1,200`,`IC 4,100; FRC 1,700`,`IC 2,300; FRC 3,500`],0,`IC = TV + IRV = 3,500; FRC = ERV + RV = 2,300 mL (Capacity = ผลรวมของ volume ตั้งแต่ 2 ค่าขึ้นไป)`);
+O(S,'calc',2,`นักศึกษาคนหนึ่งมี TLC 6,000 mL, RV 1,200 mL, TV 500 mL, ERV 1,200 mL จงหา IRV, VC, IC และ FRC`,
+ `VC = TLC − RV = <b>4,800</b>; IRV = VC − TV − ERV = 4,800 − 500 − 1,200 = <b>3,100</b>; IC = TV + IRV = <b>3,600</b>; FRC = ERV + RV = <b>2,400 mL</b>`,
+ `ตรวจสอบ: IC + FRC = 3,600 + 2,400 = 6,000 = TLC ✓`);
+M(S,'theory',1,`ปริมาตรใดวัดด้วย spirometer โดยตรง<u>ไม่ได้</u>`,
+ [`Tidal volume`,`Residual volume`,`Inspiratory reserve volume`,`Vital capacity`],1,`RV คืออากาศที่เหลือในปอดหลังหายใจออกเต็มที่ — เป่าออกมาไม่ได้ จึงวัดด้วย spirometer ไม่ได้ (FRC, TLC ก็เช่นกัน)`);
+M(S,'mech',2,`เมื่อความหนักของการออกกำลังกายเพิ่มขึ้น TV และ IRV เปลี่ยนไปอย่างไร`,
+ [`TV ↑, IRV ↑`,`TV ↑, IRV ↓`,`TV ↓, IRV ↑`,`TV ↓, IRV ↓`],1,`ตามสไลด์: TV ∝ intensity, IRV ∝ 1/intensity — TV ขยายเข้าไปใช้พื้นที่ของ IRV (และ ERV)`);
+M(S,'mech',2,`จากกราฟ Effect of intensity on RR ข้อใดถูก`,
+ [`RR ลดลงเมื่อ intensity เพิ่ม`,`RR ∝ intensity (frequency เพิ่มตามความหนัก)`,`RR คงที่ทุก intensity`,`RR เพิ่มเฉพาะตอนพัก`],1,`RR = frequency เพิ่มตาม intensity; ที่ intensity สูง VE เพิ่มโดยอาศัย RR มากขึ้นเพราะ TV เริ่ม plateau`);
+M(S,'theory',1,`ระบบหายใจแบ่งเป็น 2 ส่วน ส่วนใดเป็น Respiratory division (แลกเปลี่ยนก๊าซ)`,
+ [`Trachea`,`Bronchi`,`Terminal bronchioles`,`Alveoli`],3,`Conducting division: nasal cavity → … → terminal/respiratory bronchioles; Respiratory division: Alveolus`);
+M(S,'theory',1,`ปอดมี alveoli ประมาณกี่ถุง และพื้นที่ผิวแลกเปลี่ยนก๊าซประมาณเท่าใด`,
+ [`3 ล้านถุง, 7 m²`,`300 ล้านถุง, 70 m²`,`30 ล้านถุง, 700 m²`,`3,000 ล้านถุง, 7,000 m²`],1,`~300 million alveoli, surface area ~70 m²`);
+M(S,'theory',1,`ข้อใดเป็นหน้าที่ของทางเดินหายใจส่วนบน (conducting)`,
+ [`แลกเปลี่ยนก๊าซ`,`Conducting, Humidifying (5–6 → 47 mmHg), Cleaning (cilia), Warming`,`สร้าง surfactant`,`สร้าง ATP`],1,`สรุปหน้าที่: นำอากาศ, เพิ่มความชื้น (ความดันไอน้ำ 47 mmHg), ทำความสะอาด (cilia/WBC), ทำให้อุ่นเท่าอุณหภูมิกาย`);
+M(S,'theory',1,`Trachea มีกระดูกอ่อนรูปตัว C กี่ชิ้น`,
+ [`6–8`,`10–12`,`16–20`,`30–40`],2,`Trachea: 16–20 C-shape cartilage`);
+M(S,'theory',1,`ทำไมสิ่งแปลกปลอมมักตกลงหลอดลมข้างขวา`,
+ [`Rt bronchus ตรงกว่าและใหญ่กว่า Lt`,`Lt bronchus มี cilia มากกว่า`,`ปอดขวามี alveoli น้อยกว่า`,`หัวใจอยู่ขวา`],0,`Primary bronchus ขวา straighter & bigger than left`);
+M(S,'theory',1,`Alveolar sac เคลือบด้วยสารใด ซึ่งช่วยลดแรงตึงผิวไม่ให้ถุงลมแฟบ`,
+ [`Mucus`,`Phospholipid surfactant`,`Albumin`,`Hemoglobin`],1,`Alveolar sac coated with phospholipid surfactant`);
+R(S,'mech',1,`เรียงลำดับ 3 ขั้นตอนของ Respiratory Physiology`,
+ [`External (Pulmonary) respiration — แลกเปลี่ยนก๊าซที่ปอด`,`Gas transportation — ขนส่งในหลอดเลือด`,`Internal (Cellular) respiration — เซลล์ใช้ O<sub>2</sub> สร้าง ATP`],
+ `ปอด → หัวใจ/เลือด → เซลล์ (ATP)`);
+M(S,'theory',1,`O<sub>2</sub> ถูกขนส่งในเลือดโดยจับกับ Hemoglobin ประมาณกี่ %`,
+ [`3%`,`10%`,`70%`,`97%`],3,`O<sub>2</sub>: Hb 97%, dissolved plasma 3%`);
+M(S,'theory',2,`ตามสไลด์อาจารย์ CO<sub>2</sub> ถูกขนส่งอย่างไร`,
+ [`Dissolved plasma 10%, จับกับ Hb (HbCO<sub>2</sub>) 90%`,`Plasma 90%, Hb 10%`,`Plasma 3%, Hb 97%`,`ทั้งหมดอยู่ในรูป plasma`],0,
+ `ตามสไลด์: 10% plasma, 90% HbCO<sub>2</sub> — หมายเหตุ ตำราสากลแยกเป็น bicarbonate ~70%, carbamino-Hb ~20–23%, dissolved ~7–10% ข้อสอบให้ตอบตามสไลด์`);
+M(S,'mech',1,`Hyperventilation ขณะออกกำลังกายเกิดจากอะไร`,
+ [`PCO<sub>2</sub> ↓ และ PO<sub>2</sub> ↑`,`PCO<sub>2</sub> ↑ และ PO<sub>2</sub> ↓ ในเลือด กระตุ้นให้ TV และ RR เพิ่ม`,`Parasympathetic ↑`,`ความดันโลหิตลดลง`],1,`Exercise: hyperventilation (excessive ventilation) — PCO<sub>2</sub>↑, PO<sub>2</sub>↓ → ventilation ↑ ทั้ง TV และ RR`);
+M(S,'theory',1,`Dyspnea (หายใจลำบาก) มีสาเหตุตามสไลด์ข้อใด`,
+ [`ฟิตมากเกินไป`,`Poor aerobic fitness, ปรับตัวต่อ PCO<sub>2</sub>/H<sup>+</sup> สูงไม่ได้, Asthma`,`ดื่มน้ำมาก`,`RHR ต่ำ`],1,`Dyspnea: poor aerobic fitness, inability to adjust to high blood PCO<sub>2</sub>, H<sup>+</sup>, asthma`);
+R(S,'mech',2,`เรียงลำดับกลไก Valsalva maneuver (เช่น ขณะยกน้ำหนัก)`,
+ [`ปิด glottis แล้วเบ่ง`,`Intra-abdominal และ Intra-thoracic pressure ↑`,`ความดันสูงกดหลอดเลือดดำใหญ่ (great veins) ให้แฟบ`,`Venous return ↓`,`CO (Q) ↓`,`Arterial blood pressure ↓ (อาจหน้ามืด)`],
+ `Valsalva อันตรายต่อผู้มีโรคหัวใจ/ความดัน — แนะนำให้หายใจออกขณะออกแรง ห้ามกลั้นหายใจ`);
+M(S,'mech',2,`ทำไม Valsalva maneuver จึงอาจทำให้หน้ามืด`,
+ [`O<sub>2</sub> ในเลือดเพิ่มมากเกิน`,`VR ↓ → CO ↓ → BP ↓ → เลือดไปสมองลด`,`HR ลดเหลือศูนย์`,`กล้ามเนื้อสร้าง lactate`],1,`กลไกสำคัญ: high pressures collapse great veins → ↓VR → ↓CO → ↓arterial BP`);
+M(S,'theory',1,`O<sub>2</sub> deficit คืออะไร`,
+ [`O<sub>2</sub> ที่ใช้หลังหยุดออกกำลัง`,`ช่วงเริ่มออกกำลังที่ความต้องการพลังงานสูงกว่า O<sub>2</sub> ที่ร่างกายรับได้ทัน จึงใช้ ATP-CP และ anaerobic glycolysis`,`ช่วงที่ O<sub>2</sub> สมดุลกับความต้องการ`,`จุดที่ VE/VO<sub>2</sub> ต่ำสุด`],1,`ช่วงต้น body uses: 1. ATP & CP 2. Anaerobic glycolysis (lactic acid)`);
+M(S,'theory',1,`Steady state ในกราฟการใช้ออกซิเจนหมายถึง`,
+ [`VO<sub>2</sub> สมดุลกับความต้องการพลังงาน ใช้ aerobic Kreb's cycle ใน mitochondria เป็นหลัก`,`ช่วงที่ไม่ใช้ O<sub>2</sub>`,`ช่วงฟื้นตัว`,`ช่วงที่ lactate สะสมสูงสุด`],0,`Steady state: Aerobic glycolysis/Kreb's cycle by mitochondria`);
+M(S,'theory',1,`EPOC (O<sub>2</sub> debt) ใช้ออกซิเจนส่วนเกินหลังออกกำลังเพื่ออะไร`,
+ [`สร้างกล้ามเนื้อใหม่ทันที`,`สร้าง ATP & CP คืน และเปลี่ยน Lactic acid กลับเป็น Pyruvic acid`,`ลด HR ให้ต่ำกว่าปกติ`,`เก็บ O<sub>2</sub> ไว้ในปอด`],1,`Recovery: body generates ATP & CP; changes lactic acid to pyruvic acid (+ คืน O<sub>2</sub> ให้ Hb/myoglobin, ลดอุณหภูมิ)`);
+R(S,'mech',2,`เรียงลำดับเหตุการณ์ในกราฟ O<sub>2</sub> consumption ตั้งแต่เริ่มจนหลังออกกำลังกาย`,
+ [`เริ่มออกกำลัง: O<sub>2</sub> deficit — ใช้ ATP-CP + Anaerobic glycolysis`,`VO<sub>2</sub> ค่อยๆ เพิ่มขึ้น`,`Steady state — Aerobic Kreb's cycle ใน mitochondria`,`หยุดออกกำลัง`,`EPOC — สร้าง ATP-CP คืน, lactate → pyruvate`],
+ `ซ้อมวาดกราฟ: แกน X เวลา, แกน Y VO<sub>2</sub>; พื้นที่ใต้เส้นช่วงต้น = deficit, หลังหยุด = EPOC`);
+O(S,'mech',3,`ทำไมคนที่ฝึกความทนทานมาดีจึงมี O<sub>2</sub> deficit และ EPOC น้อยกว่าคนไม่ได้ฝึกที่ความหนักเท่ากัน`,
+ `คนฝึกดีมี mitochondria, capillaries และ CO สูงกว่า → VO<sub>2</sub> ขึ้นถึง steady state ได้เร็วกว่า → พึ่ง ATP-CP/anaerobic glycolysis น้อยลง → lactate และการใช้ CP น้อย → EPOC น้อยลง ฟื้นตัวเร็ว`,
+ ``);
+M(S,'theory',2,`Ventilatory equivalent for O<sub>2</sub> (VE/VO<sub>2</sub>) คืออะไร`,
+ [`ปริมาณ O<sub>2</sub> ในเลือดแดง`,`ดัชนีบอกว่าการหายใจสอดคล้องกับความต้องการ O<sub>2</sub> เพียงใด = ลิตรอากาศที่หายใจ / ลิตร O<sub>2</sub> ที่ใช้`,`อัตราการเต้นของหัวใจต่อ VO<sub>2</sub>`,`TV/RR`],1,`VE/VO<sub>2</sub> (L air breathed / L O<sub>2</sub> consumed/min)`);
+M(S,'theory',2,`Ventilatory threshold คือจุดใด`,
+ [`จุดที่ VE เท่ากับศูนย์`,`จุดที่ลิตรอากาศที่หายใจ > ลิตร O<sub>2</sub> ที่ใช้ (VE เพิ่มไม่สมส่วนกับ VO<sub>2</sub>)`,`จุดที่ HR สูงสุด`,`จุดเริ่มออกกำลังกาย`],1,`Ventilatory threshold – point where L air breathed > L O<sub>2</sub> consumed`);
+M(S,'theory',2,`ตามสไลด์ Ventilatory threshold เทียบเท่ากับข้อใด`,
+ [`Lactate threshold = Anaerobic threshold`,`HRmax`,`VO<sub>2</sub>max`,`Steady state`],0,`Ventilatory threshold = Lactate threshold = Anaerobic threshold: จุดที่การสร้าง ATP เปลี่ยนจาก aerobic Kreb's ไปเป็น anaerobic glycolysis (lactate) ติดตามได้ด้วย VE/VO<sub>2</sub> และ VE/VCO<sub>2</sub>`);
+M(S,'calc',2,`จากกราฟ Ventilatory Equivalents ในสไลด์ VE/VO<sub>2</sub> ต่ำสุดที่ ~22 ประมาณที่ power output เท่าใด และเรียกจุดนั้นว่าอะไร`,
+ [`0 W – resting`,`~75 W – estimated lactate threshold`,`250 W – VO<sub>2</sub>max`,`25 W – steady state`],1,`ในกราฟ VE/VO<sub>2</sub> ลดจาก ~44 (rest) ถึงต่ำสุด ~22 ที่ 75 W แล้วเพิ่มขึ้น → จุดนี้คือ estimated lactate threshold`);
+O(S,'calc',3,`ผลทดสอบ: 50 W → VE 25, VO<sub>2</sub> 1.0; 100 W → VE 36, VO<sub>2</sub> 1.6; 150 W → VE 60, VO<sub>2</sub> 2.0; 200 W → VE 90, VO<sub>2</sub> 2.5 L/min จงคำนวณ VE/VO<sub>2</sub> ทุกระดับ และระบุช่วงที่เกิด ventilatory threshold`,
+ `50 W = 25.0; 100 W = 22.5; 150 W = 30.0; 200 W = 36.0 → ต่ำสุดที่ 100 W แล้วเริ่มสูงขึ้น → ventilatory threshold อยู่ช่วง <b>100–150 W</b>`,
+ `ก่อน threshold VE เพิ่มสมส่วนกับ VO<sub>2</sub> (อัตราส่วนคงที่หรือลด) หลัง threshold VE เพิ่มเร็วกว่า VO<sub>2</sub>`);
+O(S,'mech',3,`อธิบายกลไกว่าทำไมหลัง lactate threshold แล้ว VE จึงเพิ่มขึ้นเร็วกว่า VO<sub>2</sub>`,
+ `Mitochondria ถูกใช้เต็มที่ → พลังงานส่วนเพิ่มมาจาก anaerobic glycolysis → lactic acid ↑ → H<sup>+</sup> ถูก buffer ด้วย bicarbonate → เกิด CO<sub>2</sub> ส่วนเกิน (H<sup>+</sup> + HCO<sub>3</sub><sup>−</sup> → H<sub>2</sub>O + CO<sub>2</sub>) → PCO<sub>2</sub>/H<sup>+</sup> กระตุ้น chemoreceptor → VE ↑ มาก ทั้งที่ VO<sub>2</sub> เพิ่มไม่มาก`,
+ ``);
+M(S,'mech',2,`ตามสไลด์ Energy organization เมื่อ intensity สูงสุดจนใช้ mitochondria ครบ 100% จะเกิดอะไร`,
+ [`เปลี่ยนจาก anaerobic เป็น aerobic`,`Shift back จาก Aerobic Kreb's ไปเป็น Anaerobic (lactate) เรียกว่า Lactate threshold`,`หยุดสร้าง ATP`,`ใช้ไขมันมากขึ้น`],1,`ลำดับ: เริ่มใช้ ATP-CP → anaerobic → aerobic (50% mitochondria ที่ mild, 70% ที่ medium) → 100% ที่ max → shift back to anaerobic = lactate threshold`);
+M(S,'theory',1,`pH ปกติของเลือดคือเท่าใด และ pH ต่ำกว่าปกติเรียกว่าอะไร`,
+ [`6.8–7.0, Alkalosis`,`7.35–7.45, Acidosis`,`7.0–7.2, Alkalosis`,`7.5–7.8, Acidosis`],1,`Normal 7.35–7.45; lower pH = acidosis, higher pH = alkalosis`);
+M(S,'theory',2,`ตามสไลด์ ขณะออกกำลังกาย pH ใน active muscle ลดลงเหลือประมาณเท่าใด`,
+ [`7.35–7.45`,`6.6–6.9`,`5.0–5.5`,`7.8–8.0`],1,`During exercise body slightly acidosis 6.6–6.9 (more acid found in active muscle)`);
+M(S,'mech',2,`กลไกควบคุม pH ของร่างกาย 3 อย่างตามสไลด์คือ`,
+ [`Chemical buffers, Ventilation ↑, Kidneys ขับ H<sup>+</sup>`,`Sweating, Shivering, Vasodilation`,`HR, SV, CO`,`Insulin, Glucagon, Adrenaline`],0,`1. Chemical buffers (bicarbonate, phosphate, protein, Hb) 2. Ventilation ↑ (H<sup>+</sup>+HCO<sub>3</sub><sup>−</sup> → CO<sub>2</sub> หายใจออก) 3. Kidneys excrete H<sup>+</sup>`);
+M(S,'prac',2,`หลังออกกำลังหนัก ทำไมแนะนำ Active recovery (เดิน/ปั่นเบาๆ) มากกว่านั่งพักเฉยๆ`,
+ [`ทำให้ HR สูงขึ้น`,`Active recovery ฟื้น pH/กำจัด lactate ใน 30–60 นาที (buffers + ventilation) เทียบกับ passive 60–120 นาที (kidneys)`,`ลด VO<sub>2</sub>max`,`เพิ่ม lactate`],1,`Active recovery facilitates pH recovery`);
+M(S,'calc',2,`ถ้า RR เพิ่มเป็น 2 เท่า แต่ TV ลดลงครึ่งหนึ่ง (หายใจตื้นเร็ว) VE จะเป็นอย่างไร`,
+ [`เพิ่ม 2 เท่า`,`เท่าเดิม`,`ลดครึ่งหนึ่ง`,`เพิ่ม 4 เท่า`],1,`VE = TV × RR = (½)(2) = 1 → เท่าเดิม แต่การแลกเปลี่ยนก๊าซจริงจะแย่ลง เพราะสัดส่วน dead space ต่อ TV สูงขึ้น`);
+M(S,'theory',1,`Pulmonary artery นำเลือดชนิดใดไปปอด`,
+ [`เลือดแดง O<sub>2</sub> สูง`,`เลือดดำ O<sub>2</sub> ต่ำ CO<sub>2</sub> สูง จาก Right ventricle`,`เลือดจาก Left ventricle`,`พลาสมาอย่างเดียว`],1,`Pulmonary artery: RV → ปอด (venous blood); Pulmonary vein: ปอด → LA (arterial blood)`);
+}
+// =====================================================================
+// 3) ENERGY (4.1 ENERGY)
+// =====================================================================
+{const S='en';
+M(S,'theory',1,`ปฏิกิริยาการปลดปล่อยพลังงานจาก ATP คือข้อใด`,
+ [`ADP + Pi → ATP + Energy`,`ATP → ADP + Pi + Energy`,`ATP + O<sub>2</sub> → CO<sub>2</sub>`,`CP → ATP + Cr`],1,`ATP (Adenosine Triphosphate) = high energy molecule; ATP → ADP + Pi + E`);
+M(S,'theory',1,`ข้อใดจับคู่สารอาหารสะสมกับหน่วยย่อยได้ถูกต้อง`,
+ [`Glycogen = Glycerol + FFA`,`Triglyceride = Glycerol + Free fatty acid`,`Protein = Glucose สายยาว`,`Glycogen = Amino acid สายยาว`],1,`Glycogen = long-chain glucose; Triglyceride = glycerol + FFA; Protein = long-chain amino acid`);
+M(S,'theory',1,`Anaerobic glycolysis และ Kreb's cycle เกิดที่ใดในเซลล์ตามลำดับ`,
+ [`Mitochondria / Cytoplasm`,`Cytoplasm / Mitochondria`,`Nucleus / Cytoplasm`,`Cell membrane / Nucleus`],1,`Anaerobic glycolysis: cytoplasm; Aerobic Kreb's cycle: mitochondria`);
+M(S,'calc',1,`Glucose 1 โมเลกุล ผ่าน Anaerobic glycolysis และ Aerobic (Kreb's) ได้ ATP เท่าใดตามลำดับ`,
+ [`2 และ 32–38`,`38 และ 2`,`4 และ 456`,`1 และ 10`],0,`Anaerobic: Glucose → 2 Lactate + 2 ATP; Aerobic: → CO<sub>2</sub> + H<sub>2</sub>O + 32–38 ATP (สไลด์ใช้ 38)`);
+M(S,'calc',2,`Glucose 10 โมเลกุล: ถ้าสลายแบบ anaerobic ทั้งหมด vs aerobic ทั้งหมด (38 ATP) ได้ ATP เท่าใด`,
+ [`20 vs 380`,`2 vs 38`,`200 vs 3,800`,`38 vs 20`],0,`10×2 = 20 ATP; 10×38 = 380 ATP → aerobic ได้มากกว่า 19 เท่า`);
+M(S,'calc',2,`ต้องการ ATP 380 โมเลกุลจาก anaerobic glycolysis อย่างเดียว ต้องใช้ glucose กี่โมเลกุล`,
+ [`10`,`19`,`190`,`380`],2,`380/2 = <b>190 glucose</b> (เทียบ aerobic ใช้เพียง 10) → อธิบายว่าทำไม glycogen หมดเร็วในงานความหนักสูง`);
+M(S,'calc',2,`ตามสไลด์ ไขมัน 1 โมเลกุลให้ 456 ATP และ CHO ให้ 38 ATP ไขมันให้มากกว่ากี่เท่า`,
+ [`6 เท่า`,`12 เท่า`,`19 เท่า`,`24 เท่า`],1,`456/38 = <b>12 เท่า</b> — แต่ไขมันสลายช้า (low aerobic power) จึงเหมาะกับ low intensity, long duration`);
+M(S,'calc',2,`ตามสไลด์ Total Energy = Intensity × Duration ถ้าออกกำลังที่ใช้ 50 ATP/วินาที นาน 2 นาที ต้องใช้ ATP ทั้งหมดเท่าใด`,
+ [`100`,`3,000`,`6,000`,`25`],2,`50 ATP/s × 120 s = <b>6,000 ATP</b>`);
+O(S,'calc',3,`จากข้อก่อน (6,000 ATP) ถ้าได้จาก glucose แบบ aerobic (38 ATP) และแบบ anaerobic (2 ATP) ต้องใช้ glucose เท่าใดในแต่ละแบบ จงแปลผล`,
+ `Aerobic: 6,000/38 ≈ <b>158 glucose</b>; Anaerobic: 6,000/2 = <b>3,000 glucose</b> (มากกว่า ~19 เท่า)`,
+ `Anaerobic สร้าง ATP ได้เร็วแต่สิ้นเปลืองมาก + ได้ lactate/H<sup>+</sup> → ล้าเร็ว จึงใช้ได้แค่ช่วงสั้น`);
+M(S,'theory',1,`ระบบ ATP-CP เป็นระบบหลัก (dominant) ในช่วงเวลาใด`,
+ [`0–6 วินาที`,`6–60 วินาที`,`2 นาที – 1.5 ชั่วโมง`,`4 ชั่วโมงขึ้นไป`],0,`ATP-CP 0–6 s; Anaerobic glycolysis 6–60 s; Aerobic glycolytic (CHO) 2 min–1.5 h; Aerobic lipolytic (Fat) 4 h+`);
+M(S,'theory',1,`Aerobic lipolytic (Fat) system เป็นระบบหลักในกิจกรรมแบบใด`,
+ [`ยกน้ำหนัก 1 ครั้ง`,`วิ่ง 100 m`,`Low intensity นาน 4 ชั่วโมงขึ้นไป (ultra-endurance)`,`วิ่ง 400 m`],2,`Fat: low intensity, 4 h+, availability slow, aerobic power low, capacity unlimited`);
+M(S,'theory',1,`ข้อใดจับคู่ประเภทกีฬากับระบบพลังงานถูกต้อง`,
+ [`Power (Jump) – Aerobic lipolytic`,`Speed (Sprint) – Anaerobic system`,`Endurance (Run) – ATP-CP`,`Ultra-endurance – ATP-CP`],1,`Power → ATP-CP; Speed → Anaerobic; Endurance → Aerobic glycolytic (CHO); Ultra-endurance → Aerobic lipolytic (Fat)`);
+M(S,'theory',1,`ยกน้ำหนัก, ทุ่มน้ำหนัก, กระโดดสูง ใช้ระบบพลังงานใดเป็นหลัก`,
+ [`ATP-PC (phosphagen)`,`Anaerobic glycolysis`,`Aerobic CHO`,`Aerobic Fat`],0,`Strength-power sports (0–4 s) → ATP-PC`);
+M(S,'theory',2,`วิ่ง 200–400 m หรือว่ายน้ำ 100 m ใช้ระบบใดเป็นหลัก`,
+ [`ATP-PC อย่างเดียว`,`ATP-PC & Lactic acid (Anaerobic-power)`,`Aerobic system`,`Aerobic with fat`],1,`Anaerobic-power sports (~10 s – 1.5 min) → ATP-PC & lactic acid`);
+M(S,'theory',2,`วิ่งมาราธอนและวิ่ง > 800 m ใช้ระบบใดเป็นหลัก`,
+ [`ATP-PC`,`Lactic acid`,`Aerobic system`,`ไม่ใช้พลังงาน`],2,`Aerobic-endurance (>3 min) → aerobic system; ultra-endurance triathlon → aerobic with fat`);
+M(S,'theory',2,`ระบบใดมี "Anaerobic power มาก แต่ capacity น้อย"`,
+ [`ATP-CP`,`Anaerobic glycolysis`,`Aerobic CHO`,`Aerobic Fat`],0,`ATP-CP: power large, capacity small (มี CP สะสมในกล้ามเนื้อน้อย); Anaerobic glycolysis: power moderate, capacity larger`);
+M(S,'theory',2,`ระบบใด "Aerobic power ต่ำ แต่ capacity ไม่จำกัด"`,
+ [`ATP-CP`,`Anaerobic glycolysis`,`Aerobic glycolytic (CHO)`,`Aerobic lipolytic (Fat)`],3,`Fat: power low, capacity unlimited; CHO: power large, capacity large but limited (finite)`);
+M(S,'theory',1,`ปฏิกิริยาของ Creatine phosphate ในการสร้าง ATP คือ`,
+ [`CP + ADP → ATP + Cr`,`CP → Glucose`,`ATP + Cr → CP + ADP + O<sub>2</sub>`,`CP + O<sub>2</sub> → CO<sub>2</sub>`],0,`CP + ADP + Pi + H<sup>+</sup> ↔ ATP + Cr (ตามสไลด์); CP → Creatine + Pi + Energy → ใช้สร้าง ATP จาก ADP`);
+M(S,'theory',1,`ระบบใด "Exclusively uses CHO" (ใช้คาร์โบไฮเดรตเท่านั้น)`,
+ [`ATP-CP`,`Anaerobic glycolysis`,`Aerobic lipolytic`,`Protein metabolism`],1,`Anaerobic glycolysis (short-term lactic acid system) ใช้ CHO เท่านั้น`);
+M(S,'theory',1,`หน้าที่ของ ATP ในร่างกายตามสไลด์ ข้อใด<u>ไม่ใช่</u>`,
+ [`รักษาอุณหภูมิกาย`,`ซ่อมแซมเซลล์`,`ย่อยอาหาร`,`ขนส่ง O<sub>2</sub> ในเลือดแทน Hb`],3,`Functions: maintain body temp, repair damaged cells, digestion, mechanical work (movement)`);
+M(S,'theory',1,`หลักพลังงานทางสรีรวิทยา (Physiology Energy Principle) คือข้อใด`,
+ [`ATP demand = ATP supply (utilization = generation)`,`ATP demand > supply เสมอ`,`ATP ไม่ถูกใช้ขณะพัก`,`ใช้ไขมันเท่านั้น`],0,`กล้ามเนื้อมี ATP สะสมไม่พอ จึงต้องหาวิธีสร้างใหม่ให้เท่ากับที่ใช้`);
+M(S,'theory',2,`ปัจจัย 2 อย่างที่กำหนดปริมาณ ATP และชนิดเชื้อเพลิงที่ใช้คือ`,
+ [`อายุและเพศ`,`Exercise Intensity (อัตราการสร้าง ATP/วินาที) และ Duration (เวลา)`,`HR และ BP`,`น้ำหนักและส่วนสูง`],1,`Total Energy = Intensity × Duration`);
+M(S,'theory',2,`จากการทดลองของ Christensen & Hansen (1939) อาหาร 3 วันแบบใดทำให้เวลาจนหมดแรง (time to exhaustion) นานที่สุด`,
+ [`High-fat`,`High-CHO`,`High-protein`,`อดอาหาร`],1,`High-CHO diet → time to exhaustion นานกว่า high-fat หลายเท่า และ RPE ต่ำกว่า (Stepto 2002) เพราะ glycogen สะสมมากกว่า`);
+M(S,'theory',2,`เมื่อความหนักของการออกกำลังกายเพิ่มขึ้น แหล่งพลังงานหลักจะเปลี่ยนเป็นอะไร`,
+ [`ไขมัน`,`Glucose/glycogen (CHO)`,`โปรตีน`,`ไม่เปลี่ยน`],1,`During high intensity glucose becomes the main energy source; ที่ความหนักต่ำใช้ไขมันในสัดส่วนสูง`);
+R(S,'mech',2,`เรียงลำดับการสลายคาร์โบไฮเดรตแบบใช้ออกซิเจน`,
+ [`Glycogen → Glucose`,`Glucose → Pyruvate (cytoplasm, glycolysis)`,`Pyruvate → Acetyl CoA (เข้า mitochondria)`,`Kreb's cycle + O<sub>2</sub>`,`CO<sub>2</sub> + H<sub>2</sub>O + 32–38 ATP`],
+ `ถ้าไม่มี O<sub>2</sub> พอ: Pyruvate → Lactate + 2 ATP (cramp)`);
+R(S,'mech',2,`เรียงลำดับระบบพลังงานที่เป็นหลักตามระยะเวลาการออกกำลังกาย (สั้น → ยาว)`,
+ [`ATP-CP (0–6 วินาที)`,`Anaerobic glycolysis (6–60 วินาที)`,`Aerobic glycolytic – CHO (2 นาที–1.5 ชม.)`,`Aerobic lipolytic – Fat (4 ชม.+)`],``);
+M(S,'theory',2,`ลำดับการสลายพลังงานของ adenosine phosphate ข้อใดถูก`,
+ [`ATP → ADP → AMP → Adenosine (แต่ละขั้นปล่อย Pi + E)`,`AMP → ADP → ATP`,`Adenosine → ATP → ADP`,`ATP → AMP → ADP`],0,`ATP → ADP + Pi + E; ADP → AMP + Pi + E; AMP → A + Pi + E`);
+O(S,'mech',2,`อธิบายว่าทำไมนักวิ่งระยะสั้นจึงเกิด lactate และตะคริว/ล้า`,
+ `Intensity สูงมาก ต้องการ ATP เร็วกว่าที่ O<sub>2</sub>/mitochondria จะรองรับ → pyruvate จาก glycolysis ไม่ได้เข้า Kreb's cycle → เปลี่ยนเป็น lactate + H<sup>+</sup> → pH ในกล้ามเนื้อลด → ล้า/ตะคริว`,
+ ``);
+O(S,'theory',3,`เปรียบเทียบ 4 ระบบพลังงานในด้าน: ใช้ O<sub>2</sub> หรือไม่, แหล่งพลังงาน, ระยะเวลา, power และ capacity`,
+ `<table class="mini"><tr><th>ระบบ</th><th>O<sub>2</sub></th><th>แหล่ง</th><th>เวลา</th><th>Power</th><th>Capacity</th></tr><tr><td>ATP-CP</td><td>ไม่ใช้</td><td>ATP, CP ในกล้ามเนื้อ</td><td>0–6 s</td><td>สูงสุด</td><td>น้อย</td></tr><tr><td>Anaerobic glycolysis</td><td>ไม่ใช้</td><td>Glycogen (CHO)</td><td>6–60 s</td><td>ปานกลาง</td><td>มากกว่า ATP-CP</td></tr><tr><td>Aerobic CHO</td><td>ใช้</td><td>CHO</td><td>2 min–1.5 h</td><td>สูง</td><td>มากแต่จำกัด</td></tr><tr><td>Aerobic Fat</td><td>ใช้</td><td>Fat</td><td>4 h+</td><td>ต่ำ</td><td>ไม่จำกัด</td></tr></table>`,
+ ``);
+M(S,'theory',2,`แหล่งพลังงานที่กล้ามเนื้อใช้ ข้อใดเรียงจาก "พร้อมใช้ทันที" ไป "ต้องสร้างใหม่" ถูกต้อง`,
+ [`ATP สะสม → CP เปลี่ยนเป็น ATP → สร้าง ATP ใหม่จากสารอาหาร`,`สารอาหาร → CP → ATP`,`CP → ATP → Fat`,`Fat → Glucose → ATP`],0,`Muscle energy sources: 1) ATP & CP ในเซลล์ 2) CP → ATP 3) New ATP จาก glucose, amino acid, fat`);
+}
+
+// =====================================================================
+// 4) CPR & AED
+// =====================================================================
+{const S='cpr';
+M(S,'theory',1,`CPR (Cardio-Pulmonary Resuscitation) มีเป้าหมายข้อใด`,
+ [`รักษาโรคหัวใจให้หายขาด`,`ช่วยฟื้นการทำงานของระบบไหลเวียนและหายใจที่หยุดกะทันหัน ให้หัวใจเต้นและหายใจเองได้ โดยไม่เกิดความพิการของสมอง`,`ลดความดันโลหิต`,`ป้องกันกระดูกหัก`],1,`นิยามตามสไลด์`);
+M(S,'theory',1,`สมองไม่ควรขาดออกซิเจนเกินกี่นาที`,
+ [`1 นาที`,`4 นาที`,`10 นาที`,`30 นาที`],1,`สมองไม่ควรขาด O<sub>2</sub> เกิน <b>4 นาที</b> จึงต้องเริ่ม CPR ให้เร็วที่สุด`);
+M(S,'theory',1,`ข้อใด<u>ไม่ใช่</u>สาเหตุของหัวใจหยุดเต้นตามสไลด์`,
+ [`ความไม่สมดุลของอิเล็กโทรไลต์ / กรด-ด่าง`,`กล้ามเนื้อหัวใจตายเฉียบพลัน`,`ภาวะขาดออกซิเจน`,`ข้อเท้าแพลง`],3,`สาเหตุ: 1) electrolyte/acid-base imbalance 2) โรคหัวใจ/หลอดเลือด โดยเฉพาะ MI 3) ขาด O<sub>2</sub> 4) ยา/สารบางอย่าง 5) อื่นๆ`);
+M(S,'theory',1,`หลักการช่วยฟื้นคืนชีพ A B C D ย่อมาจาก`,
+ [`Alert, Blood, Cardiac, Drug`,`Airway, Breathing, Circulation, Defibrillator`,`Ankle, Bandage, Cold, Drain`,`Airway, BP, CO, Defibrillation pad`],1,`A: Airway, B: Breathing, C: Circulation, D: Defibrillator`);
+R(S,'prac',1,`เรียงลำดับการประเมินเมื่อพบผู้ป่วยหมดสติ (ตามสไลด์)`,
+ [`ตรวจระดับความรู้สึกตัว — เขย่าไหล่ทั้งสองข้าง`,`เรียกชื่อ`,`เรียกขอความช่วยเหลือ`,`เตรียมเครื่อง Defibrillator / AED`],
+ `จากนั้นจึง A (เปิดทางเดินหายใจ) → B → C → D`);
+M(S,'prac',1,`วิธีเปิดทางเดินหายใจโดยมือหนึ่งยกคาง อีกมือวางหน้าผากแล้วดันไปด้านหลังให้แหงนหน้า เรียกว่า`,
+ [`Jaw thrust`,`Head tilt – chin lift`,`Heimlich maneuver`,`Recovery position`],1,`Head tilt chin lift`);
+M(S,'prac',2,`ถ้าสงสัยผู้ป่วยบาดเจ็บกระดูกคอ (เช่น ล้มกระแทกศีรษะในสนาม) ควรเปิดทางเดินหายใจวิธีใด`,
+ [`Head tilt – chin lift แรงๆ`,`Jaw thrust (ดันขากรรไกรล่างขึ้นโดยไม่แหงนคอ)`,`พลิกตะแคงทันที`,`ไม่ต้องเปิดทางเดินหายใจ`],1,`Jaw thrust เปิดทางเดินหายใจโดยไม่ขยับกระดูกคอ — ลดความเสี่ยงบาดเจ็บไขสันหลัง`);
+M(S,'prac',1,`การตรวจการหายใจ "ตาดู หูฟัง แก้มสัมผัส" ควรใช้เวลาประมาณเท่าใด`,
+ [`3 วินาที`,`10 วินาที`,`30 วินาที`,`1 นาที`],1,`ใช้เวลาประมาณ 10 วินาที (ไม่เกิน)`);
+M(S,'prac',1,`ถ้าผู้ป่วยไม่หายใจ ให้ช่วยหายใจกี่ครั้ง และปริมาตรประมาณเท่าใดต่อครั้ง`,
+ [`1 ครั้ง, 100 cc`,`2 ครั้ง, ~500 cc/ครั้ง (เห็นหน้าอกขยาย)`,`5 ครั้ง, 1,000 cc`,`10 ครั้ง, 200 cc`],1,`ช่วยหายใจ 2 ครั้ง ด้วยการเป่าปาก หรือ Ambu bag ~500 cc/ครั้ง — ค่าใกล้เคียง TV ปกติ`);
+M(S,'prac',1,`การตรวจชีพจรผู้ใหญ่ใน CPR ให้คลำที่ใดและใช้เวลาไม่เกินเท่าใด`,
+ [`Radial pulse, 30 วินาที`,`Carotid pulse, ไม่เกิน 10 วินาที`,`Femoral pulse, 1 นาที`,`ฟังที่หน้าอก, 20 วินาที`],1,`คลำ Carotid pulse ไม่เกิน 10 วินาที`);
+M(S,'prac',1,`ถ้าคลำชีพจรไม่ได้ ให้กดนวดหัวใจกี่ครั้งด้วยความเร็วเท่าใด (ตามสไลด์)`,
+ [`15 ครั้ง, 60 ครั้ง/นาที`,`30 ครั้ง, 100 ครั้ง/นาที`,`30 ครั้ง, 150 ครั้ง/นาที`,`5 ครั้ง, 100 ครั้ง/นาที`],1,`กด 30 ครั้ง ความเร็ว 100 ครั้ง/นาที (แนวทาง AHA ปัจจุบัน 100–120 ครั้ง/นาที)`);
+M(S,'prac',1,`อัตราส่วนกดหน้าอก : ช่วยหายใจ ในผู้ใหญ่คือ`,
+ [`15 : 2`,`30 : 2`,`5 : 1`,`30 : 1`],1,`30 : 2 ทำ 5 cycles แล้วประเมินซ้ำ`);
+M(S,'calc',2,`ทำ CPR 5 cycles (30:2) จะกดหน้าอกทั้งหมดกี่ครั้งและช่วยหายใจกี่ครั้ง`,
+ [`150 และ 10`,`30 และ 2`,`100 และ 20`,`60 และ 4`],0,`30×5 = 150 compressions; 2×5 = 10 breaths`);
+M(S,'calc',2,`กดหน้าอก 30 ครั้งที่อัตรา 100 ครั้ง/นาที ใช้เวลากี่วินาที`,
+ [`10 วินาที`,`18 วินาที`,`30 วินาที`,`60 วินาที`],1,`30/100 นาที = 0.3 นาที = <b>18 วินาที</b> (ถ้า 120/นาที = 15 วินาที)`);
+O(S,'calc',2,`ถ้ากดหน้าอก 100 ครั้ง/นาที และการช่วยหายใจ 2 ครั้งใช้เวลา ~5 วินาที 5 cycles ใช้เวลาประมาณเท่าใด สอดคล้องกับ algorithm อย่างไร`,
+ `1 cycle ≈ 18 + 5 = 23 วินาที → 5 cycles ≈ 115 วินาที ≈ <b>2 นาที</b>`,
+ `จึงเป็นเหตุผลที่ algorithm ให้ตรวจสอบชีพจร/คลื่นไฟฟ้าหัวใจทุก ~2 นาที หรือทุก 5 cycles และสลับคนกดทุก 2 นาทีเพื่อลดความล้า`);
+M(S,'prac',2,`ผู้ป่วย "มีชีพจร แต่ไม่หายใจ" ต้องทำอย่างไรตาม algorithm BLS`,
+ [`กดหน้าอก 30:2 ทันที`,`ช่วยหายใจ 1 ครั้ง ทุก 5–6 วินาที และตรวจชีพจรทุก 2 นาที`,`ใช้ AED shock ทันที`,`รอรถพยาบาลเฉยๆ`],1,`มีชีพจร → rescue breathing 1 ครั้งทุก 5–6 วินาที ตรวจสอบชีพจรทุก 2 นาที`);
+M(S,'calc',2,`ช่วยหายใจ 1 ครั้งทุก 5–6 วินาที เท่ากับกี่ครั้งต่อนาที`,
+ [`5–6`,`10–12`,`20–30`,`30–40`],1,`60/6 = 10, 60/5 = 12 → <b>10–12 ครั้ง/นาที</b> (ใกล้ RR ปกติ 12–20)`);
+M(S,'theory',1,`AED ย่อมาจาก`,
+ [`Automatic Emergency Drug`,`Automated External Defibrillator`,`Artificial External Device`,`Airway Emergency Defibrillation`],1,`เครื่องกระตุกหัวใจไฟฟ้าอัตโนมัติชนิดภายนอก`);
+M(S,'theory',1,`พลังงานในการ shock ตามสไลด์ คือ`,
+ [`Monophasic 150 J, Biphasic 360 J`,`Monophasic 360 J, Biphasic 150 J, Shock 1 ครั้ง`,`ทั้งสองแบบ 50 J, 3 ครั้ง`,`Monophasic 200 J, Biphasic 200 J, 2 ครั้ง`],1,`Monophasic 360 J / Biphasic 150 J / Shock 1 ครั้ง แล้ว CPR ต่อทันที`);
+M(S,'theory',2,`คลื่นไฟฟ้าหัวใจแบบใด "มีข้อบ่งชี้ให้ shock" (shockable)`,
+ [`Asystole / PEA`,`VF / VT (pulseless)`,`Normal sinus rhythm`,`Sinus bradycardia`],1,`Shockable: VF (Ventricular fibrillation)/ VT (Ventricular tachycardia); Non-shockable: Asystole / PEA`);
+M(S,'prac',2,`ถ้าเครื่องวิเคราะห์ว่าเป็น Asystole/PEA ต้องทำอย่างไร`,
+ [`Shock ซ้ำ 3 ครั้ง`,`CPR ต่อทันที 5 cycles และตรวจคลื่นไฟฟ้าหัวใจทุก 5 cycles`,`หยุด CPR`,`ให้ผู้ป่วยนั่ง`],1,`Non-shockable → CPR ต่อทันที 5 cycles, ตรวจคลื่นไฟฟ้าหัวใจทุก 5 cycles`);
+M(S,'prac',2,`หลังจาก AED shock 1 ครั้งแล้ว สิ่งที่ต้องทำต่อทันทีคือ`,
+ [`คลำชีพจรนาน 1 นาที`,`CPR ต่อทันที 5 cycles (เริ่มจากกดหน้าอก)`,`ถอดแผ่น pad ออก`,`shock ซ้ำทันที`],1,`Shock 1 ครั้ง → CPR ต่อทันที 5 cycles → เครื่องจะวิเคราะห์ใหม่ (ไม่ต้องหยุดคลำชีพจร)`);
+R(S,'prac',2,`เรียงลำดับขั้นตอนการใช้เครื่อง AED`,
+ [`เปิดเครื่อง AED และทำตามเสียงแนะนำ`,`ติดแผ่น pad บนหน้าอกเปลือย (ใต้ไหปลาร้าขวา / ข้างลำตัวซ้ายใต้รักแร้)`,`เครื่องวิเคราะห์คลื่นไฟฟ้าหัวใจ — ห้ามทุกคนสัมผัสตัวผู้ป่วย`,`ถ้าแนะนำให้ shock: ประกาศให้ถอยห่าง แล้วกดปุ่ม shock`,`CPR ต่อทันที 5 cycles (~2 นาที) แล้วให้เครื่องวิเคราะห์ใหม่`],
+ `ระหว่างรอ AED ให้ทำ CPR ต่อเนื่องไม่หยุด`);
+R(S,'prac',2,`เรียงลำดับ Algorithm BLS ตามสไลด์`,
+ [`พบผู้ป่วยหมดสติ ไม่รู้สึกตัว`,`เรียกขอความช่วยเหลือ / รถเข็นฉุกเฉิน / เครื่อง defibrillator`,`เปิดทางเดินหายใจ (Head tilt chin lift / Jaw thrust)`,`ตรวจการหายใจ — ไม่หายใจ ช่วยหายใจ 2 ครั้ง`,`คลำชีพจร (ไม่เกิน 10 วินาที) — ไม่มีชีพจร กดนวดหัวใจ 30 : 2`,`เครื่อง defibrillator มาถึง → ตรวจคลื่นไฟฟ้าหัวใจ`],
+ `ลำดับในสไลด์ใช้หลัก A-B-C-D (แนวทาง AHA ปัจจุบันใช้ C-A-B คือเริ่มกดหน้าอกก่อน — ให้ตอบตามที่อาจารย์สอน)`);
+M(S,'prac',1,`ตำแหน่งการวางมือกดหน้าอกในผู้ใหญ่คือ`,
+ [`ลิ้นปี่ (xiphoid process)`,`กึ่งกลางหน้าอก ครึ่งล่างของกระดูก sternum (แนวกึ่งกลางระหว่างหัวนม)`,`หน้าอกด้านซ้ายเหนือหัวใจ`,`ท้องส่วนบน`],1,`วางส้นมือที่ครึ่งล่างของ sternum ประสานมือ แขนเหยียดตรง ตั้งฉากกับลำตัว — หลีกเลี่ยงลิ้นปี่เพราะอาจทำให้ตับ/อวัยวะภายในบาดเจ็บ`);
+M(S,'prac',2,`ข้อใดเป็นเทคนิคการกดหน้าอกที่ถูกต้อง`,
+ [`งอข้อศอก กดเบาๆ`,`แขนเหยียดตรง ใช้น้ำหนักตัว กดลึก ~5–6 cm และปล่อยให้หน้าอกคืนตัวเต็มที่ทุกครั้ง`,`กดแล้วค้างไว้`,`กดเร็วที่สุดเท่าที่ทำได้ 200 ครั้ง/นาที`],1,`Full chest recoil ทำให้หัวใจมีเลือดไหลกลับเติม (venous return) ก่อนบีบครั้งถัดไป`);
+O(S,'mech',2,`อธิบายความเชื่อมโยงระหว่างการกดหน้าอกกับสูตร CO = HR × SV`,
+ `การกดหน้าอกบีบหัวใจระหว่าง sternum กับกระดูกสันหลังแทนการบีบตัวเอง: อัตรากด (100–120/นาที) ทำหน้าที่เป็น "HR" และความลึก + การคืนตัวเต็มที่ทำหน้าที่กำหนด "SV" (การคืนตัวเพิ่ม venous return → EDV) → ได้ CO ที่พอส่ง O<sub>2</sub> ไปสมองภายใน 4 นาที`,
+ `จึงเป็นเหตุผลว่าทำไมต้องกดเร็วพอ ลึกพอ และไม่หยุดนาน`);
+M(S,'prac',2,`การช่วยหายใจด้วย Ambu bag แบบมีผู้ช่วย 2 คน มีข้อดีอย่างไร`,
+ [`ไม่ต้องเปิดทางเดินหายใจ`,`คนหนึ่งจับหน้ากากให้แนบสนิทและเปิดทางเดินหายใจ อีกคนบีบ bag ทำให้ได้ปริมาตรอากาศพอ`,`ทำให้กดหน้าอกไม่ต้อง`,`ใช้ O<sub>2</sub> น้อยลง`],1,`ความแนบสนิทของหน้ากากเป็นปัจจัยสำคัญของการช่วยหายใจ`);
+M(S,'prac',3,`นักฟุตบอลล้มหมดสติกลางสนาม ไม่ตอบสนอง หายใจเฮือก (gasping) ผู้ช่วยเหลือควรทำอะไรต่อจากการเรียกขอความช่วยเหลือและให้คนไปเอา AED`,
+ [`ถือว่ายังหายใจ จัดท่าพักฟื้นแล้วรอ`,`ถือว่า "ไม่หายใจปกติ" → เริ่ม CPR ทันที และใช้ AED เมื่อมาถึง`,`ให้ดื่มน้ำ`,`พาเดินออกนอกสนาม`],1,`Gasping (agonal breathing) ไม่ใช่การหายใจปกติ เป็นสัญญาณหัวใจหยุดเต้น ต้องเริ่ม CPR`);
+M(S,'prac',3,`ผู้ป่วยหมดสติข้างสระว่ายน้ำ ตัวเปียก ก่อนติดแผ่น AED ควรทำอย่างไร`,
+ [`ติดแผ่นได้เลยบนเสื้อ`,`ย้ายออกจากน้ำ เช็ดหน้าอกให้แห้งก่อนติดแผ่น pad`,`ราดน้ำเพิ่มเพื่อนำไฟฟ้า`,`ไม่ใช้ AED กับคนตัวเปียก`],1,`น้ำทำให้กระแสไฟฟ้าวิ่งผ่านผิวแทนหัวใจ และเสี่ยงต่อผู้ช่วยเหลือ`);
+O(S,'theory',2,`ทำไมการเริ่ม CPR และใช้ AED ให้เร็วที่สุดจึงสำคัญ (อธิบายด้วยสรีรวิทยา)`,
+ `หัวใจหยุดเต้น → CO = 0 → ไม่มีเลือดนำ O<sub>2</sub> ไปสมอง → เซลล์สมองขาด O<sub>2</sub> เกิน ~4 นาทีเริ่มเสียหายถาวร; CPR สร้าง CO เทียมไว้เลี้ยงสมอง ส่วน AED หยุดคลื่น VF/VT ให้ระบบไฟฟ้าหัวใจกลับมาเต้นเองได้ — ยิ่งช้าโอกาสรอดยิ่งลด`,
+ ``);
+}
+// =====================================================================
+// 5) FIRST AID FROM SPORT
+// =====================================================================
+{const S='fa';
+M(S,'prac',1,`หลัก PRICE ในการปฐมพยาบาลการบาดเจ็บเนื้อเยื่ออ่อน ย่อมาจาก`,
+ [`Pain, Rest, Ice, Cold, Exercise`,`Protection, Rest, Ice, Compression, Elevation`,`Pressure, Run, Ice, Cast, Exercise`,`Protect, Rehab, Immobilize, Cool, Elevate`],1,`PRICE = Protection, Rest, Ice, Compression, Elevation (RICE ไม่มี Protection)`);
+M(S,'prac',1,`ภายใน 24–72 ชั่วโมงแรกหลังข้อเท้าแพลง ควรประคบอย่างไร`,
+ [`ประคบร้อน`,`ประคบเย็น`,`สลับร้อน-เย็นทุก 5 นาที`,`นวดแรงๆ`],1,`ระยะเฉียบพลันใช้ความเย็น: หลอดเลือดหดตัว (vasoconstriction) ลดเลือดออก/บวม ลดปวด`);
+M(S,'prac',1,`การประคบเย็นที่เหมาะสมคือ`,
+ [`วางน้ำแข็งบนผิวโดยตรง 1 ชั่วโมง`,`ครั้งละ 15–20 นาที มีผ้ากั้น ทำซ้ำทุก 2–3 ชั่วโมง`,`ครั้งละ 2 นาที วันละครั้ง`,`แช่น้ำแข็งข้ามคืน`],1,`นานเกินหรือสัมผัสตรงเสี่ยง cold injury/frostbite`);
+M(S,'prac',1,`การยกส่วนที่บาดเจ็บ (Elevation) ควรยกให้อยู่ระดับใด`,
+ [`ต่ำกว่าระดับหัวใจ`,`สูงกว่าระดับหัวใจ`,`ระดับเดียวกับเท้า`,`ไม่ต้องยก`],1,`ยกสูงกว่าหัวใจ อาศัยแรงโน้มถ่วงช่วย venous/lymph return ลดบวม (ย้อนนึกถึง VR และ P = ρgh)`);
+M(S,'mech',2,`ทำไมการประคบเย็นจึงลดบวมและปวดได้`,
+ [`เพิ่มเลือดไปยังบริเวณบาดเจ็บ`,`Vasoconstriction → BF ↓ (R ↑) ลดเลือด/ของเหลวรั่วออก, ลด metabolism ของเนื้อเยื่อ และลดการนำกระแสประสาทความปวด`,`เพิ่ม HR`,`ทำให้กล้ามเนื้อหดตัวแรงขึ้น`],1,`เชื่อมกับสูตร BF = BP/R: หลอดเลือดหดตัว R ↑ → BF ↓`);
+M(S,'prac',2,`ข้อใดควร "หลีกเลี่ยง" ใน 72 ชั่วโมงแรกหลังบาดเจ็บ (หลัก No HARM)`,
+ [`Heat, Alcohol, Running/activity, Massage`,`Ice, Rest, Elevation`,`พันผ้ายืด`,`พบแพทย์`],0,`HARM เพิ่มเลือดไหลเวียน/บวม และอาจทำให้บาดเจ็บซ้ำ`);
+M(S,'theory',1,`Sprain และ Strain ต่างกันอย่างไร`,
+ [`Sprain = กล้ามเนื้อ/เอ็นกล้ามเนื้อ, Strain = เอ็นยึดข้อ`,`Sprain = เอ็นยึดข้อ (ligament), Strain = กล้ามเนื้อหรือเอ็นกล้ามเนื้อ (tendon)`,`เหมือนกัน`,`Sprain = กระดูกหัก`],1,`จำง่าย: sprain → ligament (ข้อต่อ); strain → muscle/tendon`);
+M(S,'theory',1,`ข้อเท้าแพลงที่พบบ่อยที่สุดเกิดจากกลไกใด และเอ็นใดบาดเจ็บบ่อยที่สุด`,
+ [`Eversion — Deltoid ligament`,`Inversion (บิดเข้าใน) — Anterior talofibular ligament (ATFL)`,`Dorsiflexion — Achilles tendon`,`Rotation — ACL`],1,`ข้อเท้าแพลงแบบ inversion + plantarflexion → ATFL ด้านนอก บาดเจ็บบ่อยสุด`);
+M(S,'theory',2,`Sprain grade 2 มีลักษณะอย่างไร`,
+ [`เอ็นยืดเล็กน้อย ไม่ฉีก ข้อมั่นคง`,`เอ็นฉีกขาดบางส่วน บวมปานกลาง ข้อหลวมเล็กน้อย`,`เอ็นขาดสมบูรณ์ ข้อหลวมมาก`,`กระดูกหัก`],1,`Grade 1 ยืด/ฉีกเล็กน้อย; Grade 2 ฉีกบางส่วน; Grade 3 ขาดทั้งหมด ข้อไม่มั่นคง`);
+R(S,'prac',2,`เรียงลำดับการพันผ้ายืด (elastic bandage) ข้อเท้าเพื่อลดบวม`,
+ [`จัดข้อเท้าตั้งฉาก 90° (ท่าปกติ)`,`เริ่มพันจากโคนนิ้วเท้า/ฝ่าเท้า (ส่วนปลาย — distal) 1–2 รอบเป็นหลัก`,`พันแบบเลขแปด (figure-of-eight) รอบข้อเท้าและส้นเท้า`,`พันไล่ขึ้นด้านบน (distal → proximal) ทับกันครึ่งหนึ่งของความกว้างผ้า`,`สิ้นสุดเหนือข้อเท้า/กลางน่อง แล้วยึดปลายผ้า`,`ตรวจการไหลเวียนที่นิ้วเท้า (สี อุณหภูมิ ชา capillary refill)`],
+ `แรงกดควรแน่นที่ส่วนปลายและค่อยๆ ลดลงเมื่อพันขึ้นด้านบน`);
+M(S,'mech',1,`ทำไมต้องพันผ้ายืดจากส่วนปลาย (distal) ไปส่วนต้น (proximal)`,
+ [`เพื่อความสวยงาม`,`ไล่ของเหลว/เลือดดำให้ไหลกลับเข้าหาหัวใจ ไม่ให้คั่งที่ปลาย`,`ประหยัดผ้า`,`ทำให้ข้อขยับง่าย`],1,`ถ้าเริ่มจากต้น ของเหลวจะถูกขังอยู่ปลายแขนขา บวมมากขึ้น`);
+M(S,'prac',1,`ในการพันผ้ายืด แต่ละรอบควรทับรอบเดิมประมาณเท่าใด`,
+ [`ไม่ต้องทับ`,`ประมาณ ½ – ⅔ ของความกว้างผ้า`,`ทับทั้งหมด`,`ทับ 1 ซม.`],1,`ทับครึ่งหนึ่งทำให้แรงกดสม่ำเสมอ ไม่มีช่องว่างให้บวมแทรก`);
+M(S,'prac',2,`ข้อใดเป็นสัญญาณว่าพันผ้ายืดแน่นเกินไป`,
+ [`นิ้วอุ่น สีชมพู`,`นิ้วชา เย็น ซีด/คล้ำ ปวดตุบๆ มากขึ้น capillary refill > 2 วินาที`,`ผ้าไม่หลุด`,`บวมลดลง`],1,`ต้องคลายแล้วพันใหม่ทันที — ควรเปิดปลายนิ้วไว้ให้ตรวจได้`);
+M(S,'prac',2,`การพันผ้ายืดข้อมือ ข้อใดถูกต้อง`,
+ [`เริ่มพันที่ข้อศอกลงมา`,`เริ่มรอบฝ่ามือ/โคนนิ้ว (metacarpals) แล้วพันเลขแปดผ่านข้อมือ ไล่ขึ้นไปถึงแขนท่อนล่าง เว้นนิ้วโป้งไว้`,`พันรวมนิ้วทั้งหมดให้แน่น`,`พันแค่รอบเดียว`],1,`หลักเดียวกับข้อเท้า: distal → proximal, figure-of-eight, เว้นปลายนิ้วให้ตรวจการไหลเวียน`);
+M(S,'theory',2,`บาดเจ็บข้อมือจากการล้มเอามือยันพื้น (FOOSH) ถ้ากดเจ็บที่ anatomical snuffbox ควรสงสัยอะไร`,
+ [`ข้อมือแพลงธรรมดา`,`กระดูก scaphoid หัก — ควร splint และส่ง x-ray`,`เอ็นร้อยหวาย`,`ไม่ต้องทำอะไร`],1,`Scaphoid fracture พลาดง่ายและเลือดเลี้ยงน้อย เสี่ยงกระดูกตาย ถ้าสงสัยให้ดามและส่งต่อ`);
+M(S,'prac',3,`หลังข้อเท้าพลิก ข้อใดบ่งชี้ว่าควรส่ง x-ray (Ottawa ankle rules)`,
+ [`บวมเล็กน้อยแต่เดินได้ปกติ`,`กดเจ็บที่ขอบหลังของตาตุ่ม (malleolus) หรือลงน้ำหนักเดิน 4 ก้าวไม่ได้`,`มีรอยช้ำสีเขียว`,`ปวดหลังพัก 1 วัน`],1,`เกณฑ์ช่วยคัดกรองกระดูกหัก`);
+M(S,'prac',2,`จุดประสงค์ของการพันผ้ายืด (compression) คืออะไร`,
+ [`ดามกระดูกหักให้อยู่นิ่งแทนเฝือก`,`ลดบวม (ลดช่องว่างให้ของเหลวรั่ว) และช่วยพยุงข้อ`,`ทำให้ร้อน`,`ห้ามเลือดจากบาดแผลใหญ่`],1,`ผ้ายืดไม่ใช่เฝือก — ถ้าสงสัยกระดูกหักต้องดาม (splint) และส่งต่อ`);
+M(S,'prac',2,`ตอนนอนหลับ ควรจัดการผ้ายืดที่พันข้อเท้าอย่างไร`,
+ [`พันให้แน่นขึ้น`,`คลายหรือถอดออก (หรือพันหลวมลง) และยกขาสูง`,`แช่น้ำร้อน`,`ไม่ต้องยกขา`],1,`ขณะนอนกล้ามเนื้อไม่ทำงาน (ไม่มี muscle pump) และไม่มีใครเฝ้าดูสัญญาณรัดแน่นเกิน`);
+M(S,'theory',1,`Rotator cuff tear เป็นการบาดเจ็บของบริเวณใด`,
+ [`เข่า`,`ไหล่ — กลุ่มกล้ามเนื้อ/เอ็น SITS (Supraspinatus, Infraspinatus, Teres minor, Subscapularis)`,`ข้อเท้า`,`คอ`],1,`พบบ่อยในกีฬาที่ใช้แขนเหนือศีรษะ เช่น ขว้าง ว่ายน้ำ วอลเลย์บอล`);
+M(S,'theory',1,`Meniscus tear คือการฉีกขาดของ`,
+ [`กระดูกอ่อนรูปจันทร์เสี้ยวในข้อเข่า มักเกิดจากการบิดเข่าขณะลงน้ำหนัก`,`เอ็นร้อยหวาย`,`กล้ามเนื้อต้นขาด้านหลัง`,`ข้อมือ`],0,`อาการ: ปวด บวม ข้อเข่าล็อก/ติด`);
+M(S,'theory',2,`Cervical tissue strain (เช่น whiplash) คือ`,
+ [`กระดูกคอหัก`,`กล้ามเนื้อ/เอ็นบริเวณคอยืดหรือฉีกจากการสะบัดอย่างรุนแรง`,`ข้อเท้าแพลง`,`หมอนรองกระดูกเอว`],1,`ถ้ามีอาการชา อ่อนแรง หรือสงสัยกระดูกคอ ห้ามขยับคอ ให้ประคองและเรียกทีมแพทย์ (และใช้ jaw thrust ถ้าต้อง CPR)`);
+O(S,'mech',3,`อธิบายกระบวนการเกิดอาการบวมหลังบาดเจ็บ และองค์ประกอบของ PRICE แต่ละตัวแก้ที่จุดใด`,
+ `เนื้อเยื่อ/หลอดเลือดฉีก → เลือดออก + การอักเสบ (vasodilation, permeability ↑) → ของเหลวรั่วสู่ช่องว่างระหว่างเซลล์ → บวม ปวด<br>• Protection/Rest: ป้องกันบาดเจ็บซ้ำ<br>• Ice: vasoconstriction ลด BF และ metabolism, ลดปวด<br>• Compression: เพิ่มแรงดันภายนอกต้านการรั่วของของเหลว<br>• Elevation: แรงโน้มถ่วงช่วย venous/lymph return`,
+ ``);
+}
+// =====================================================================
+// 6) EXERCISE & HEALTH / EXERCISE TRAINING FOR DISEASE
+// =====================================================================
+{const S='hx';
+M(S,'theory',1,`ACSM นิยาม Physical Activity ว่าอย่างไร`,
+ [`การเล่นกีฬาแข่งขันเท่านั้น`,`การเคลื่อนไหวร่างกายใดๆ ที่เกิดจากการหดตัวของกล้ามเนื้อลายมัดใหญ่ และเพิ่มการใช้พลังงาน`,`การยกน้ำหนัก`,`การออกกำลังกายตามแผน`],1,`“any bodily movement produced by the contraction of large skeletal muscles and increases energy expenditure”`);
+M(S,'theory',1,`Exercise ต่างจาก Physical activity อย่างไร`,
+ [`Exercise คือ PA ที่วางแผน มีโครงสร้าง เพื่อรักษา/พัฒนาสมรรถภาพทางกาย (เป็น subclass ของ PA)`,`ไม่ต่างกัน`,`Exercise ไม่ใช้พลังงาน`,`PA ต้องมีการแข่งขัน`],0,`Exercise = planned, structured, เพื่อ physical fitness`);
+M(S,'theory',1,`Physical activity ถูกกำหนดด้วยองค์ประกอบใด`,
+ [`Duration, Intensity, Frequency`,`HR, BP, CO`,`Age, Sex, Weight`,`Power, Speed, Agility`],0,`Duration = เวลาต่อครั้ง; Intensity = อัตราการใช้พลังงาน; Frequency = จำนวนครั้งต่อช่วงเวลา (เช่น/สัปดาห์)`);
+M(S,'theory',1,`กิจกรรมการเคลื่อนไหวที่ใช้กล้ามเนื้อมัดเล็ก เช่น เล่นหมากกระดาน วาดรูป มีผลต่อสุขภาพอย่างไร`,
+ [`ให้ประโยชน์สุขภาพเท่ากับวิ่ง`,`สำคัญ แต่ไม่ให้ประโยชน์ด้านสุขภาพเท่ากิจกรรมกล้ามเนื้อมัดใหญ่ที่ใช้พลังงานมาก`,`ทำให้หัวใจแข็งแรงมาก`,`เป็นการออกกำลังกายแบบ aerobic`],1,`ตามสไลด์ Physical Activity`);
+M(S,'theory',1,`ข้อใดเป็น Anaerobic physical activity`,
+ [`วิ่งเหยาะ 30 นาที`,`วิ่งเร็วสุดกำลังระยะสั้น (sprint)`,`ว่ายน้ำช้าๆ 1 ชั่วโมง`,`เดินขึ้นบันไดช้าๆ`],1,`Anaerobic: high intensity, short duration, ใช้พลังงานโดยไม่มี O<sub>2</sub> พอ; Aerobic: medium intensity, long duration`);
+M(S,'theory',1,`Isometric exercise คือ`,
+ [`กล้ามเนื้อยาวคงที่ แต่ tension เพิ่มขึ้น (เช่น plank, ดันกำแพง)`,`ความเร็วคงที่ตลอดช่วง`,`กล้ามเนื้อหดสั้นและยืดยาว`,`การยืดเหยียด`],0,`Isometric = length constant, tension ↑`);
+M(S,'theory',2,`Isokinetic exercise ตามสไลด์คือ`,
+ [`แรงคงที่ ความยาวเปลี่ยน`,`แรงเท่ากับแรงต้าน เคลื่อนที่ด้วยความเร็วคงที่ (constant velocity) มักใช้เครื่อง isokinetic`,`ไม่มีการเคลื่อนไหว`,`การกระโดด`],1,`Isokinetic: force = resistance, constant velocity`);
+M(S,'theory',2,`Isotonic exercise ประกอบด้วยการหดตัวแบบใด`,
+ [`Concentric (หดสั้น) และ Eccentric (ยืดยาว)`,`Isometric อย่างเดียว`,`Isokinetic อย่างเดียว`,`ไม่มีการหดตัว`],0,`Isotonic: แรงคงที่ตลอดช่วงการเคลื่อนไหว เช่น ยกดัมเบล — ยกขึ้น concentric, ลดลง eccentric`);
+M(S,'theory',2,`การยกดัมเบลลงช้าๆ (bicep curl ขาลง) เป็นการหดตัวแบบใด`,
+ [`Concentric`,`Eccentric`,`Isometric`,`Isokinetic`],1,`กล้ามเนื้อหดตัวขณะยืดยาวออก = eccentric`);
+M(S,'theory',1,`หลัก FITT ประกอบด้วย`,
+ [`Fat, Intensity, Time, Training`,`Frequency, Intensity, Type, Time`,`Fitness, Interval, Tempo, Target`,`Flexibility, Isometric, Tension, Tone`],1,`F = ความถี่ (วัน/สัปดาห์), I = ความหนัก, T = ชนิด, T = เวลา (duration)`);
+M(S,'theory',1,`The Exercise Prescription "Think FITT" ตามสไลด์ แนะนำข้อใด`,
+ [`F 1 วัน/สัปดาห์, I 90% HRmax, T 10 นาที`,`F ส่วนใหญ่ของสัปดาห์ ≥5 วัน, I moderate 50–70% HRmax (หรือ talk test), T ใช้กล้ามเนื้อมัดใหญ่ที่ชอบ, T 30 นาที`,`F ทุกวัน 3 ครั้ง, I 100%, T 2 ชั่วโมง`,`ไม่ต้องกำหนด`],1,`Moderate 50–70% of max HR, 30 min, ≥5 days/wk`);
+M(S,'calc',2,`ผู้ป่วยความดันอายุ 50 ปี แพทย์ให้ออกกำลังที่ 50–70% HRmax (220−อายุ) Target HR คือ`,
+ [`85–119`,`100–140`,`75–105`,`110–130`],0,`HRmax = 170 → 85–119 ครั้ง/นาที`);
+M(S,'calc',3,`ผู้สูงอายุ 70 ปี ใช้สูตร 208 − 0.7×อายุ ที่ intensity 60% HRmax ได้ HR เป้าหมายเท่าใด`,
+ [`90`,`95.4`,`100`,`159`],1,`HRmax = 208 − 49 = 159 → 0.6 × 159 = <b>95.4 ≈ 95 ครั้ง/นาที</b>`);
+M(S,'calc',2,`ยกน้ำหนัก 80 kg ได้ 8 ครั้ง ใช้สูตร Brzycki: 1RM = W / [1.0278 − (0.0278 × n)] ได้ 1RM เท่าใด`,
+ [`≈ 88 kg`,`≈ 99.3 kg`,`≈ 110 kg`,`≈ 64 kg`],1,`0.0278×8 = 0.2224 → 1.0278 − 0.2224 = 0.8054 → 80/0.8054 = <b>99.3 kg</b>`);
+M(S,'calc',2,`ยก 80 kg ได้ 8 ครั้ง ใช้สูตร 1RM = W × [1 + (0.033 × n)] ได้เท่าใด`,
+ [`≈ 101.1 kg`,`≈ 82.6 kg`,`≈ 96 kg`,`≈ 121 kg`],0,`1 + 0.264 = 1.264 → 80 × 1.264 = <b>101.1 kg</b> (ใกล้เคียง Brzycki)`);
+O(S,'calc',3,`ยก 60 kg ได้ 10 ครั้ง จงหา 1RM ด้วยสูตร Brzycki และหาน้ำหนักฝึกที่ 70% 1RM`,
+ `1.0278 − 0.278 = 0.7498 → 1RM = 60/0.7498 ≈ <b>80.0 kg</b>; 70% = <b>56 kg</b>`,
+ `ใช้ประเมิน anaerobic/strength exercise; การทดสอบ 1RM จริงเสี่ยงบาดเจ็บ จึงใช้การประมาณจากจำนวนครั้ง`);
+M(S,'calc',3,`ใช้สูตร Brzycki ถ้าต้องการประมาณ 1RM ที่ 100 kg ควรยกน้ำหนัก 5 ครั้งด้วยน้ำหนักเท่าใด`,
+ [`≈ 75 kg`,`≈ 88.9 kg`,`≈ 95 kg`,`≈ 83.5 kg`],1,`W = 1RM × [1.0278 − 0.0278×5] = 100 × (1.0278 − 0.139) = 100 × 0.8888 = <b>88.9 kg</b>`);
+M(S,'theory',1,`ข้อใดเป็นข้อห้ามออกกำลังกายตามสไลด์ When Not To Exercise`,
+ [`อุณหภูมิกาย > 38.3 °C (101 °F)`,`HR ขณะพัก 70`,`ความดัน 118/76`,`เพิ่งตื่นนอน`],0,`ข้อห้าม: ไข้ >38.3 °C, ขาดการรักษา, โรคใหม่ที่ยังไม่วินิจฉัย, ปวดรุนแรง, รู้สึกไม่สบาย, ความดันสูง, น้ำตาลไม่คงที่`);
+M(S,'theory',2,`ผู้ป่วยมีความดัน 150/95 mmHg จัดอยู่ในกลุ่มใดตามสไลด์`,
+ [`ปกติ`,`Mild hypertension (140/90 – 160/100)`,`Moderate HT (160/100 – 180/110)`,`Severe HT (>180/110)`],1,`150/95 อยู่ในช่วง 140/90–160/100 = Mild HT`);
+M(S,'theory',2,`ผู้ป่วยความดัน 185/115 mmHg มาที่ฟิตเนส ควรทำอย่างไร`,
+ [`ให้ยกน้ำหนักหนักๆ`,`Severe HT (>180/110) — ไม่ควรออกกำลังกาย ส่งพบแพทย์`,`ให้วิ่ง interval`,`ให้ทำ Valsalva`],1,`ความดันสูงมาก + การออกกำลังทำให้ SBP เพิ่มอีก → เสี่ยงหลอดเลือดสมอง/หัวใจ`);
+M(S,'theory',2,`ตามสไลด์ ระดับน้ำตาลในเลือดเท่าใดถือว่า "unstable sugar levels" ที่ควรงดออกกำลังกาย`,
+ [`> 100 mg%`,`> 50 mg%`,`< 200 mg%`,`ไม่มีเกณฑ์`],0,`สไลด์ระบุ Unstable sugar levels: blood sugar > 100 mg% (ให้ตอบตามสไลด์)`);
+M(S,'theory',1,`อาการใดต้องหยุดออกกำลังกายและรายงานแพทย์`,
+ [`เหงื่อออก`,`เจ็บ/แน่นหน้าอก คอ กราม, เหนื่อยผิดปกติ, หายใจหอบผิดปกติ, เวียนศีรษะ, HR เร็วหรือไม่สม่ำเสมอต่อเนื่อง`,`กล้ามเนื้อล้าเล็กน้อย`,`หิวน้ำ`],1,`Symptoms that should be reported to your MD`);
+M(S,'theory',1,`การทดสอบ Talk Test ใช้ประเมินอะไร`,
+ [`ความแข็งแรง`,`ความหนัก (intensity) — ออกกำลังที่ยังพูดคุยได้ ถ้าหอบจนพูดไม่ได้ให้ลดความหนัก`,`ความอ่อนตัว`,`องค์ประกอบร่างกาย`],1,`Exercise at conversation level — moderate intensity`);
+M(S,'theory',1,`RPE ย่อมาจาก`,
+ [`Rate of Pulse Exercise`,`Rating of Perceived Exertion`,`Resting Pressure Estimate`,`Repetition Per Exercise`],1,`การรับรู้ความเหนื่อยของตนเอง แบ่ง Low/Mild, Medium/Moderate, High/Heavy/Hard`);
+M(S,'theory',1,`การเพิ่ม Duration สำหรับผู้เริ่มต้นตามสไลด์คือ`,
+ [`เริ่ม 60 นาทีทันที`,`เริ่ม 5–10 นาที เพิ่ม 1–2 นาทีทุกสัปดาห์ จนถึงเป้าหมาย 20–60 (30–60) นาที`,`เริ่ม 30 นาที ลดลงทุกสัปดาห์`,`ไม่ต้องกำหนดเวลา`],1,`Progressive overload อย่างค่อยเป็นค่อยไป`);
+M(S,'theory',1,`Strengthening exercise ตามสไลด์ข้อใดถูก`,
+ [`อย่างน้อย 2 ครั้ง/สัปดาห์, 8–10 ท่า, ท่าละ 8–12 ครั้ง, high intensity short duration`,`ทุกวัน 50 ท่า`,`1 ครั้ง/เดือน`,`ทำ 100 ครั้ง/ท่า น้ำหนักเบา`],0,`At least 2 times/week, 8–10 exercises, lift 8–12 times/set, slow and easy progression`);
+M(S,'theory',1,`Flexibility exercise ข้อใดถูก`,
+ [`High intensity short duration`,`Low intensity, very long duration เหมาะกับผู้สูงอายุ เช่น stretching, yoga, tai chi, chair stretches`,`ใช้ ATP-CP`,`เพิ่ม VO<sub>2</sub>max มากที่สุด`],1,`ช่วยป้องกันข้อติดแข็งและปวด`);
+M(S,'theory',1,`Endurance exercise มีลักษณะอย่างไร`,
+ [`High intensity, short duration`,`Medium intensity, long duration, ต่อเนื่อง ใช้แขนขา เช่น เดิน ปั่น ว่าย เต้น + warm-up/cool down`,`ยกน้ำหนักสูงสุด`,`ยืดเหยียดอย่างเดียว`],1,`ใช้ aerobic energy system เป็นหลัก`);
+M(S,'theory',1,`ข้อใดเป็นองค์ประกอบของ Health-related physical fitness`,
+ [`Agility, Balance, Speed`,`Cardiorespiratory endurance, Muscle strength & endurance, Flexibility, Body composition`,`Reaction time, Power`,`Coordination`],1,`Skill-related (performance/motor fitness): agility, balance, coordination, speed, power, reaction time`);
+M(S,'theory',1,`ตาม WHO การขาดกิจกรรมทางกาย (physical inactivity) เป็นปัจจัยเสี่ยงการตายอันดับที่เท่าใดของโลก`,
+ [`1`,`4`,`10`,`20`],1,`Physical inactivity — 4th leading risk factor for global mortality; 60% ของการตายทั่วโลกมาจาก NCDs`);
+M(S,'theory',1,`NCDs ย่อมาจาก`,
+ [`New Cardiac Diseases`,`Non-Communicable Diseases (โรคไม่ติดต่อเรื้อรัง)`,`Neuro-Cognitive Disorders`,`National Cancer Database`],1,`เช่น เบาหวาน ความดัน หัวใจ มะเร็ง`);
+M(S,'theory',2,`โรคใด<u>ไม่</u>อยู่ในรายการ "Irrefutable Evidence for Exercise in Primary & Secondary Prevention" ตามสไลด์`,
+ [`Diabetes mellitus`,`Breast & colon cancer`,`Osteoporosis / Dementia`,`ไข้หวัดใหญ่`],3,`รายการ: Diabetes, Cancer (breast, colon), Hypertension, Depression, Osteoporosis, Dementia, CAD, all-cause & CV death`);
+M(S,'theory',2,`ความสัมพันธ์ระหว่าง Physical activity กับ health status ตามสไลด์`,
+ [`ไม่มีความสัมพันธ์`,`Linear relationship — ยิ่งมี PA มาก สุขภาพยิ่งดี และ inactivity เป็นปัจจัยเสี่ยงที่ปรับเปลี่ยนได้`,`ผกผัน`,`มีผลเฉพาะนักกีฬา`],1,`Exercise Is Medicine`);
+M(S,'theory',2,`ข้อใด<u>ไม่ใช่</u>ประโยชน์ของการออกกำลังกายตามสไลด์`,
+ [`ช่วยรักษาระดับน้ำตาลในเลือดให้คงที่`,`ปรับระดับคอเลสเตอรอลให้ดีขึ้น`,`ปรับปรุง microcirculation`,`ทำให้ความดันโลหิตขณะพักสูงขึ้นถาวร`],3,`ประโยชน์: endurance, strength, flexibility, energy utilization, น้ำหนัก, ลดซึมเศร้า, การนอน, ความดัน, น้ำตาล, หัวใจ, cholesterol, microcirculation, ลดความเสี่ยงโรคหัวใจ`);
+M(S,'theory',2,`กิจกรรมแบบ Weight-bearing (รับน้ำหนักตัว เช่น เดิน กระโดดเชือก) มีประโยชน์เด่นต่อโรคใด`,
+ [`Osteoporosis (กระดูกพรุน)`,`ไข้หวัด`,`ภูมิแพ้`,`สายตาสั้น`],0,`แรงกระแทกกระตุ้นการสร้างมวลกระดูก`);
+M(S,'theory',1,`Sports ตามนิยามในสไลด์ต้องมีลักษณะใด`,
+ [`มีการแข่งขัน การนับคะแนน กติกา และผลลัพธ์คาดเดาล่วงหน้าไม่ได้`,`ไม่มีกติกา`,`ทำคนเดียวเพื่อความสนุกเท่านั้น`,`ต้องใช้ลูกบอล`],0,`แบ่งเป็น individual และ team sports`);
+M(S,'theory',1,`อุปสรรคที่พบบ่อยในการออกกำลังกายตามสไลด์ ข้อใด<u>ไม่ใช่</u>`,
+ [`ไม่มีเวลา`,`เหนื่อยเกินไป / น่าเบื่อ`,`ข้อจำกัดทางร่างกาย / ความเคยชินกับการนั่งนิ่ง`,`มีสมรรถภาพดีเกินไป`],3,`Barriers: competing demands, not enough time, too tired, physical limitations, too boring, sedentary habits`);
+O(S,'mech',2,`อธิบายกลไกที่การออกกำลังกายช่วยควบคุมระดับน้ำตาลในผู้ป่วยเบาหวานชนิดที่ 2 (เชื่อมกับไฟล์ ENERGY)`,
+ `กล้ามเนื้อที่หดตัวต้องการ ATP → ดึง glucose จากเลือดเข้าเซลล์ (การหดตัวกระตุ้น GLUT4 ขึ้นมาที่ผิวเซลล์ได้แม้ไม่มี insulin) → ใช้ใน glycolysis/Kreb's cycle และเติม glycogen ที่ใช้ไป → ระดับน้ำตาลในเลือดลด; การฝึกสม่ำเสมอเพิ่ม insulin sensitivity, เพิ่ม mitochondria และลดไขมันสะสม`,
+ `ข้อควรระวัง: ตรวจน้ำตาลก่อน-หลัง พกของหวานกันน้ำตาลต่ำ ดูแลเท้า`);
+O(S,'prac',3,`จงออกแบบโปรแกรมออกกำลังกาย (FITT) สำหรับผู้ป่วยเบาหวานชนิดที่ 2 อายุ 55 ปี ที่ไม่เคยออกกำลังกาย พร้อมข้อควรระวัง`,
+ `<b>F:</b> aerobic 3–5 วัน/สัปดาห์ (ไม่เว้นเกิน 2 วันติด) + strength 2 วัน/สัปดาห์<br><b>I:</b> moderate 50–70% HRmax → HRmax = 165 → <b>~83–116 ครั้ง/นาที</b> หรือ talk test / RPE moderate<br><b>T:</b> เดินเร็ว ปั่นจักรยาน ว่ายน้ำ (กล้ามเนื้อมัดใหญ่) + resistance band 8–10 ท่า 8–12 ครั้ง<br><b>T:</b> เริ่ม 10 นาที เพิ่ม 1–2 นาที/สัปดาห์ จนถึง 30–60 นาที มี warm-up/cool-down<br><b>ข้อควรระวัง:</b> งดถ้าน้ำตาลไม่คงที่/ไม่สบาย/ไข้ >38.3 °C, ตรวจเท้า รองเท้าเหมาะสม, หยุดและพบแพทย์ถ้าเจ็บหน้าอก เวียนหัว`,
+ ``);
+O(S,'prac',3,`จงออกแบบโปรแกรมสำหรับผู้ป่วยความดันโลหิตสูง 150/95 mmHg อายุ 45 ปี และระบุสิ่งที่ควรหลีกเลี่ยง`,
+ `เป็น Mild HT → ออกกำลังได้ (ควรผ่านแพทย์)<br><b>F:</b> ≥5 วัน/สัปดาห์ <b>I:</b> moderate 50–70% HRmax (175) → <b>~88–123 ครั้ง/นาที</b> <b>T:</b> aerobic เดินเร็ว ปั่น ว่าย <b>T:</b> 30 นาที/วัน (สะสมได้)<br>Strength: น้ำหนักเบา–ปานกลาง จำนวนครั้งมาก<br><b>หลีกเลี่ยง:</b> Valsalva/กลั้นหายใจขณะยก (ทำให้ BP แกว่งรุนแรง), ยกน้ำหนักสูงสุด, isometric หนักนานๆ; ถ้า BP > 180/110 ห้ามออกกำลัง`,
+ `กลไกลดความดันระยะยาว: TPR ↓ (vasodilation/หลอดเลือดยืดหยุ่นดีขึ้น), sympathetic tone ↓, น้ำหนักลด`);
+O(S,'mech',3,`อธิบายว่าทำไมการออกกำลังกายแบบแอโรบิกสม่ำเสมอทำให้ RHR ลดลงและเสี่ยงโรคหัวใจลดลง (เชื่อมกับบท Cardio)`,
+ `การฝึก → LV โตและบีบตัวดีขึ้น + blood volume ↑ → SV ↑ → ที่ CO พักเท่าเดิม (~5 L/min) HR จึงลดลง (CO = HR × SV) + parasympathetic tone ↑; นอกจากนี้ HDL ↑ ความดัน ↓ น้ำตาล/น้ำหนักดีขึ้น microcirculation ดีขึ้น → ลดปัจจัยเสี่ยง CAD`,
+ ``);
+M(S,'prac',2,`ผู้ป่วยโรคหัวใจออกกำลังกายแล้วมีอาการแน่นหน้าอกร้าวไปกราม ควรทำอย่างไร`,
+ [`ฝืนทำต่อให้ครบเวลา`,`หยุดทันที พักและรายงานแพทย์/เรียกความช่วยเหลือ ถ้าหมดสติไม่หายใจ เริ่ม CPR + AED`,`ดื่มน้ำเย็นแล้วออกต่อ`,`เปลี่ยนเป็นยกน้ำหนัก`],1,`Pain or pressure in chest, neck or jaw — สัญญาณกล้ามเนื้อหัวใจขาดเลือด`);
+}
+
+</script>
+<script>
+const SECS=[
+ {id:'cv',name:'หัวใจ & หลอดเลือด',full:'1. Cardiovascular & Cardio Response to Exercise',c:'var(--cv)'},
+ {id:'resp',name:'ระบบหายใจ',full:'2. Respiratory System & Respiratory Response',c:'var(--resp)'},
+ {id:'en',name:'ระบบพลังงาน',full:'3. Energy & Muscle Metabolism',c:'var(--en)'},
+ {id:'cpr',name:'CPR & AED',full:'4. CPR & AED (Theory & Practice)',c:'var(--cpr)'},
+ {id:'fa',name:'ปฐมพยาบาลกีฬา',full:'5. First Aid from Sport',c:'var(--fa)'},
+ {id:'hx',name:'Exercise & Disease',full:'6. Exercise & Health / Training for Disease',c:'var(--hx)'}];
+const KN={calc:'🧮 คำนวณ',theory:'📘 ทฤษฎี/ถาม-ตอบ',mech:'⚙️ กลไก',prac:'🩹 ปฏิบัติ'};
+const DN={1:'ง่าย',2:'กลาง',3:'ยาก'};
+const SUM={
+cv:`<table><tr><th>สูตร</th><th>ความหมาย / ค่าที่ต้องจำ</th></tr>
+<tr><td>CO = HR × SV</td><td>พัก ~5 L/min · untrained max ~20 · trained max ~40</td></tr>
+<tr><td>SV = EDV − ESV</td><td>plateau ที่ 40–60% VO<sub>2</sub>max · supine > upright (gravity)</td></tr>
+<tr><td>BP = TPR × CO</td><td>Vasoconstriction → TPR↑ → BP↑</td></tr>
+<tr><td>BF = BP / R</td><td>Vasodilation → R↓ → BF↑</td></tr>
+<tr><td>PP = SBP − DBP<br>MAP = DBP + ⅓PP</td><td>ออกกำลัง: SBP↑ ตาม intensity, DBP คงที่/ลดเล็กน้อย</td></tr>
+<tr><td>HRmax = 220 − อายุ<br>= 208 − 0.7×อายุ</td><td>RHR untrained 60–80 · trained 30–40 · steady state ใหม่ 2–3 นาที</td></tr>
+<tr><td>VO<sub>2</sub> = CO × (A−V)O<sub>2</sub> diff</td><td>(A−V) พัก ~6 · max 16–17 mL/100 mL</td></tr>
+<tr><td>Hct = RBC×100 / BV</td><td>ชาย 45–55% หญิง 40–45% · ต่ำ = anemia · สูง = polycythemia</td></tr></table>
+<b>ANS:</b> Sympathetic → HR↑ contractility↑ vasoconstriction · Parasympathetic → HR↓ vasodilation`,
+resp:`<table><tr><th>สูตร / ค่า</th><th>ความหมาย</th></tr>
+<tr><td>VE = TV × RR</td><td>TV = amplitude (∝ intensity), RR = frequency (∝ intensity), IRV ∝ 1/intensity</td></tr>
+<tr><td>TV 500 · IRV 3000 · ERV 1100 · RV 1200</td><td>VC = TV+IRV+ERV = 4600 · TLC = 5800 · IC = 3500 · FRC = 2300 mL</td></tr>
+<tr><td>VE / VO<sub>2</sub></td><td>ตัวอย่าง 10 / 0.25 = 40 · ต่ำสุดที่ ventilatory (=lactate =anaerobic) threshold</td></tr>
+<tr><td>O<sub>2</sub> transport</td><td>Hb 97% · plasma 3% (CO<sub>2</sub>: Hb 90% · plasma 10% ตามสไลด์)</td></tr>
+<tr><td>pH</td><td>ปกติ 7.35–7.45 · muscle ขณะออกกำลัง 6.6–6.9 · Active recovery 30–60 นาที · Passive 60–120 นาที</td></tr></table>
+<b>กราฟ O<sub>2</sub>:</b> O<sub>2</sub> deficit (ATP-CP + anaerobic) → Steady state (Kreb's) → EPOC (สร้าง ATP-CP คืน, lactate → pyruvate)<br>
+<b>Valsalva:</b> ปิด glottis → ความดันช่องท้อง/อก↑ → great veins แฟบ → VR↓ → CO↓ → BP↓`,
+en:`<table><tr><th>ระบบ</th><th>เวลา (dominant)</th><th>ATP / สมการ</th><th>กีฬา</th></tr>
+<tr><td>ATP-CP</td><td>0–6 s</td><td>CP + ADP → ATP + Cr</td><td>Power: กระโดด ยกน้ำหนัก</td></tr>
+<tr><td>Anaerobic glycolysis</td><td>6–60 s</td><td>Glucose → 2 Lactate + 2 ATP (cytoplasm)</td><td>Speed: sprint, 200–400 m</td></tr>
+<tr><td>Aerobic CHO</td><td>2 min–1.5 h</td><td>CHO + O<sub>2</sub> → 32–38 ATP (mitochondria)</td><td>Endurance: >800 m, marathon</td></tr>
+<tr><td>Aerobic Fat</td><td>4 h+</td><td>Fat + O<sub>2</sub> → 456 ATP</td><td>Ultra-endurance: triathlon</td></tr></table>
+Total Energy = Intensity (ATP/s) × Duration (s) · ATP demand = ATP supply · High-CHO diet → time to exhaustion นานกว่า`,
+cpr:`<b>A-B-C-D:</b> Airway (head tilt–chin lift / jaw thrust) · Breathing (ดู-ฟัง-สัมผัส ≤10 s, ช่วย 2 ครั้ง ~500 cc) · Circulation (carotid ≤10 s, กด 30 ครั้ง 100/นาที) · Defibrillator<br>
+<b>30 : 2 × 5 cycles (~2 นาที)</b> · มีชีพจรแต่ไม่หายใจ → ช่วยหายใจ 1 ครั้ง/5–6 s, เช็คชีพจรทุก 2 นาที<br>
+<b>Shock:</b> Monophasic 360 J · Biphasic 150 J · 1 ครั้ง → CPR ต่อทันที 5 cycles<br>
+<b>Shockable</b> VF/VT · <b>Non-shockable</b> Asystole/PEA → CPR 5 cycles, ตรวจคลื่นทุก 5 cycles · สมองขาด O<sub>2</sub> ไม่ควรเกิน 4 นาที`,
+fa:`<b>PRICE:</b> Protection · Rest · Ice (15–20 นาที, มีผ้ากั้น, 24–72 ชม.แรก) · Compression · Elevation (สูงกว่าหัวใจ) · หลีกเลี่ยง HARM<br>
+<b>พันผ้ายืด:</b> ข้อเท้า 90° → เริ่มส่วนปลาย (distal) → figure-of-eight → ไล่ขึ้น proximal ทับ ½–⅔ → ตรวจการไหลเวียนปลายนิ้ว<br>
+<b>Sprain</b> = ligament · <b>Strain</b> = muscle/tendon · ข้อเท้าพลิก inversion → ATFL`,
+hx:`<b>FITT:</b> Frequency ≥5 วัน · Intensity moderate 50–70% HRmax / talk test / RPE · Type กล้ามเนื้อมัดใหญ่ · Time 30 นาที (เริ่ม 5–10 นาที +1–2 นาที/สัปดาห์)<br>
+<b>1RM Brzycki</b> = W / [1.0278 − 0.0278n] · <b>หรือ</b> W × [1 + 0.033n]<br>
+<b>Strength:</b> ≥2 ครั้ง/สัปดาห์, 8–10 ท่า, 8–12 ครั้ง · <b>Flexibility:</b> low intensity, very long duration<br>
+<b>ห้ามออกกำลัง:</b> ไข้ >38.3 °C · BP Mild 140/90–160/100 · Moderate 160/100–180/110 · Severe >180/110 · น้ำตาลไม่คงที่ (>100 mg% ตามสไลด์)<br>
+<b>Isometric</b> ความยาวคงที่ · <b>Isotonic</b> concentric+eccentric · <b>Isokinetic</b> ความเร็วคงที่`};
+
+QS.forEach((q,i)=>q.id=i);
+let st={};try{st=JSON.parse(localStorage.getItem('exphys_final')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('exphys_final',JSON.stringify(st))}catch(e){}};
+const F={sec:'all',k:'all',d:'all',s:'all'};let order=null,reveal=false;
+
+function rng(seed){return()=>{seed=(seed*9301+49297)%233280;return seed/233280}}
+function shuf(a,seed){const r=rng(seed+7);a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+// deterministic option order per question so the answer isn't always in the same position
+QS.forEach(q=>{if(q.f==='mcq'){q.perm=shuf(q.o.map((_,i)=>i),q.id*13+3)}});
+
+function chipRow(el,items,key){el.innerHTML='';items.forEach(([v,label,n])=>{const b=document.createElement('button');b.className='chip'+(F[key]===v?' on':'');b.innerHTML=label+(n!=null?`<span class="n">${n}</span>`:'');b.onclick=()=>{F[key]=v;render()};el.appendChild(b)})}
+function stOf(q){return st[q.id]?st[q.id].r:null}
+function pass(q){if(F.sec!=='all'&&q.s!==F.sec)return false;if(F.k!=='all'&&q.k!==F.k)return false;if(F.d!=='all'&&q.d!=F.d)return false;
+ const r=stOf(q);if(F.s==='todo'&&r)return false;if(F.s==='wrong'&&r!=='bad')return false;return true}
+
+function render(){
+ const cnt=s=>QS.filter(q=>s==='all'||q.s===s).length;
+ chipRow(document.getElementById('secRow'),[['all','ทั้งหมด',QS.length],...SECS.map(s=>[s.id,s.name,cnt(s.id)])],'sec');
+ chipRow(document.getElementById('kRow'),[['all','ทุกแบบ'],...Object.entries(KN)],'k');
+ chipRow(document.getElementById('dRow'),[['all','ทุกระดับ'],['1','ง่าย'],['2','กลาง'],['3','ยาก']],'d');
+ chipRow(document.getElementById('stRow'),[['all','ทั้งหมด'],['todo','ยังไม่ทำ'],['wrong','ที่ทำผิด']],'s');
+ const sb=document.getElementById('sumBox');sb.innerHTML='';
+ const secs=F.sec==='all'?SECS:SECS.filter(s=>s.id===F.sec);
+ if(F.sec==='fa'||F.sec==='all'){sb.innerHTML+=`<div class="note">📌 หมวด <b>First Aid</b>: ไม่มีไฟล์วิดีโอแนบมา ข้อสอบหมวดนี้จึงอ้างอิงหลักปฐมพยาบาลการบาดเจ็บทางกีฬามาตรฐาน (PRICE, การพันผ้ายืด) — ควรดูคลิปของอาจารย์เทียบอีกครั้ง</div>`}
+ if(F.sec!=='all'){const s=secs[0];sb.innerHTML+=`<details class="sum" open><summary>📋 สรุปสูตร & ประเด็นสำคัญ — ${s.full}</summary><div class="in">${SUM[s.id]}</div></details>`}
+ else sb.innerHTML+=`<details class="sum"><summary>📋 สรุปสูตรทุกบท (กดเพื่อเปิด)</summary><div class="in">${SECS.map(s=>`<h4 style="margin:12px 0 4px;color:${s.c}">${s.full}</h4>${SUM[s.id]}`).join('')}</div></details>`;
+ const L=document.getElementById('list');L.innerHTML='';
+ let qs=QS.filter(pass);if(order)qs=shuf(qs,order);
+ if(!qs.length){L.innerHTML='<div class="empty">ไม่มีข้อที่ตรงกับตัวกรอง</div>'}
+ let lastS=null,n=0;
+ qs.forEach(q=>{n++;if(!order&&q.s!==lastS){lastS=q.s;const s=SECS.find(x=>x.id===q.s);const h=document.createElement('div');h.className='sec-h';h.innerHTML=`<span class="dot" style="background:${s.c}"></span>${s.full}`;L.appendChild(h)}
+  L.appendChild(card(q,n))});
+ stats(qs);
+}
+function stats(qs){const done=qs.filter(q=>stOf(q)).length,ok=qs.filter(q=>stOf(q)==='ok').length;
+ document.getElementById('sTot').textContent=qs.length;document.getElementById('sDone').textContent=done;document.getElementById('sOk').textContent=ok;
+ document.getElementById('sPct').textContent=done?Math.round(ok/done*100)+'%':'–';document.getElementById('pbar').style.width=(qs.length?done/qs.length*100:0)+'%'}
+function mark(q,r,extra){st[q.id]=Object.assign({r},extra||{});save()}
+function head(q,n){const s=SECS.find(x=>x.id===q.s);return `<div class="qh"><span class="num">ข้อ ${n}.</span><span class="tag">${s.name}</span><span class="tag ${q.k}">${KN[q.k]}</span><span class="tag d${q.d}">${DN[q.d]}</span>${q.f==='order'?'<span class="tag">เรียงลำดับ</span>':q.f==='open'?'<span class="tag">เขียนตอบ</span>':''}</div><div class="qt">${q.q}</div>`}
+function card(q,n){const d=document.createElement('div');d.className='q';d.style.setProperty('--c',SECS.find(x=>x.id===q.s).c);
+ const r=stOf(q);if(r)d.classList.add(r==='ok'?'done-ok':'done-bad');
+ d.innerHTML=head(q,n);
+ if(q.f==='mcq')mcq(q,d);else if(q.f==="open")openQ(q,d);else ord(q,d);return d}
+function mcq(q,d){const box=document.createElement('div');box.className='opts';const ex=document.createElement('div');ex.className='ex';
+ const sel=st[q.id]?st[q.id].c:null;const show=sel!=null||reveal;
+ q.perm.forEach((oi,pos)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<span class="L">${'กขคง'[pos]}</span><span>${q.o[oi]}</span>`;
+  if(show){b.disabled=true;if(oi===q.a)b.classList.add('ok');else if(oi===sel)b.classList.add('bad')}
+  b.onclick=()=>{mark(q,oi===q.a?'ok':'bad',{c:oi});rerender(q,d)};box.appendChild(b)});
+ d.appendChild(box);
+ if(show){const okp=q.perm.indexOf(q.a);ex.classList.add('show');
+  ex.innerHTML=(sel!=null?`<span class="v ${sel===q.a?'ok':'bad'}">${sel===q.a?'✔ ถูกต้อง':'✘ ยังไม่ถูก'}</span> — `:'')+`คำตอบ: <b>${'กขคง'[okp]}</b><br>${q.ex}`;
+  d.appendChild(ex);if(sel!=null)retry(q,d)}}
+function retry(q,d){const bt=document.createElement('div');bt.className='btns';const b=document.createElement('button');b.className='btn';b.textContent='↺ ทำข้อนี้ใหม่';b.onclick=()=>{delete st[q.id];save();rerender(q,d)};bt.appendChild(b);d.appendChild(bt)}
+function openQ(q,d){const s=st[q.id]||{};const ta=document.createElement('textarea');ta.placeholder='ลองเขียนคำตอบ / วิธีคิดก่อนดูเฉลย...';ta.value=s.t||'';ta.oninput=()=>{st[q.id]=Object.assign(st[q.id]||{},{t:ta.value});if(!st[q.id].r)st[q.id].r=null;save()};
+ d.appendChild(ta);const shown=s.v||reveal;const bt=document.createElement('div');bt.className='btns';
+ if(!shown){const b=document.createElement('button');b.className='btn pri';b.textContent='ดูเฉลย';b.onclick=()=>{st[q.id]=Object.assign(st[q.id]||{},{v:1});save();rerender(q,d)};bt.appendChild(b);d.appendChild(bt);return}
+ const ex=document.createElement('div');ex.className='ex show';ex.innerHTML=`<div class="ans">${q.ans}</div>${q.ex?`<div>${q.ex}</div>`:''}`;d.appendChild(ex);
+ const lab=document.createElement('span');lab.style.cssText='font-size:.85rem;color:var(--mute);align-self:center';lab.textContent='ประเมินตัวเอง:';bt.appendChild(lab);
+ [['ok','✔ ตอบได้','g'],['bad','✘ ยังไม่ได้','r']].forEach(([v,t,c])=>{const b=document.createElement('button');b.className='btn '+c+(s.r===v?' pri':'');b.textContent=t;b.onclick=()=>{st[q.id]=Object.assign(st[q.id]||{},{r:v,v:1});save();rerender(q,d)};bt.appendChild(b)});
+ const rb=document.createElement('button');rb.className='btn';rb.textContent='↺ ซ่อนเฉลย';rb.onclick=()=>{delete st[q.id];save();rerender(q,d)};bt.appendChild(rb);d.appendChild(bt)}
+function ord(q,d){const s=st[q.id]||{};let seq=s.seq?s.seq.slice():[];const mix=shuf(q.items.map((_,i)=>i),q.id*7+1);
+ const checked=s.r!=null&&s.seq&&s.seq.length===q.items.length;
+ const hint=document.createElement('div');hint.style.cssText='font-size:.82rem;color:var(--mute)';hint.textContent='คลิกตัวเลือกด้านล่างตามลำดับที่ถูกต้อง (คลิกในกล่องคำตอบเพื่อเอาออก)';d.appendChild(hint);
+ const box=document.createElement('div');box.className='seqbox seq';
+ if(!seq.length)box.innerHTML='<span class="ph">ลำดับของคุณจะแสดงที่นี่</span>';
+ seq.forEach((ii,p)=>{const b=document.createElement('button');b.className='it'+(checked?(ii===p?' ok':' bad'):'');b.innerHTML=`<span class="k">${p+1}.</span>${q.items[ii]}`;
+  if(!checked)b.onclick=()=>{seq.splice(p,1);st[q.id]={seq};save();rerender(q,d)};box.appendChild(b)});
+ d.appendChild(box);
+ if(!checked){const pool=document.createElement('div');pool.className='pool';mix.filter(i=>!seq.includes(i)).forEach(i=>{const b=document.createElement('button');b.className='it';b.innerHTML=q.items[i];b.onclick=()=>{seq.push(i);st[q.id]={seq};save();rerender(q,d)};pool.appendChild(b)});d.appendChild(pool)}
+ const bt=document.createElement('div');bt.className='btns';
+ if(!checked){const c=document.createElement('button');c.className='btn pri';c.textContent='ตรวจคำตอบ';c.disabled=seq.length!==q.items.length;if(c.disabled)c.style.opacity=.45;
+  c.onclick=()=>{const ok=seq.every((v,i)=>v===i);st[q.id]={seq,r:ok?'ok':'bad'};save();rerender(q,d)};bt.appendChild(c)}
+ const rs=document.createElement('button');rs.className='btn';rs.textContent='↺ เริ่มใหม่';rs.onclick=()=>{delete st[q.id];save();rerender(q,d)};bt.appendChild(rs);d.appendChild(bt);
+ if(checked||reveal){const ex=document.createElement('div');ex.className='ex show';const ok=checked&&s.r==='ok';
+  ex.innerHTML=(checked?`<span class="v ${ok?'ok':'bad'}">${ok?'✔ เรียงถูกทั้งหมด':'✘ ยังไม่ถูก (สีแดง = ตำแหน่งผิด)'}</span><br>`:'')+`<b>ลำดับที่ถูกต้อง:</b><ol class="right">${q.items.map(t=>`<li>${t}</li>`).join('')}</ol>${q.ex?`<div style="margin-top:6px">${q.ex}</div>`:''}`;d.appendChild(ex)}}
+function rerender(q,d){const n=d.querySelector('.num').textContent.match(/\d+/)[0];const nd=card(q,+n);d.replaceWith(nd);stats(QS.filter(pass))}
+document.getElementById('bShuf').onclick=e=>{order=order?null:Math.floor(Math.random()*1e5)+1;e.target.textContent=order?'↩ เรียงตามบท':'🔀 สุ่มลำดับข้อ';render()};
+document.getElementById('bReveal').onclick=e=>{reveal=!reveal;e.target.classList.toggle('chip');e.target.textContent=reveal?'✖ ปิดโหมดทบทวน':'👁 โหมดทบทวน (แสดงเฉลยทั้งหมด)';render()};
+const rbtn=document.getElementById('bReset');let armed=false;rbtn.onclick=()=>{if(!armed){armed=true;rbtn.textContent='กดอีกครั้งเพื่อยืนยันการล้าง';setTimeout(()=>{armed=false;rbtn.textContent='↺ ล้างคำตอบทั้งหมด'},3000);return}
+ st={};save();armed=false;rbtn.textContent='↺ ล้างคำตอบทั้งหมด';render()};
+render();
+
+</script>
+</body>
+</html>
